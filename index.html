@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>AXAS Solution — Powering Your Digital Growth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@500;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+/* ============================================================
+   AXAS SOLUTION — Professional Business Website
+   Inspired by Avalon Technologies aesthetic
+   Light theme, corporate-grade, fully responsive
+   ============================================================ */
+
+:root {
+  --navy:   #0a1628;
+  --navy2:  #0e1f3d;
+  --blue:   #1a4fc4;
+  --cyan:   #00a8e8;
+  --gold:   #f0a500;
+  --white:  #ffffff;
+  --offwhite: #f8f9fc;
+  --light:  #eef1f8;
+  --border: #dde2ee;
+  --txt:    #1a2340;
+  --sub:    #5a6480;
+  --muted:  #8a90a8;
+  --card:   #ffffff;
+  --g1: linear-gradient(135deg, #1a4fc4, #00a8e8);
+  --g2: linear-gradient(135deg, #0a1628, #1a4fc4);
+  --g3: linear-gradient(135deg, #00a8e8, #0dd3b0);
+  --ease: cubic-bezier(.4,0,.2,1);
+  --r: 8px;
+  --shadow: 0 4px 24px rgba(10,22,40,.08);
+  --shadow-lg: 0 12px 48px rgba(10,22,40,.14);
+}
+
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body { font-family:'Barlow',sans-serif; background:var(--white); color:var(--txt); overflow-x:hidden; line-height:1.6; }
+h1,h2,h3,h4,h5 { font-family:'Barlow Condensed',sans-serif; letter-spacing:-.01em; }
+a { color:inherit; text-decoration:none; }
+img { max-width:100%; display:block; }
+button,input,select,textarea { font-family:'Barlow',sans-serif; }
+::selection { background:rgba(26,79,196,.18); color:var(--navy); }
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:#f0f2f8; }
+::-webkit-scrollbar-thumb { background:var(--blue); border-radius:2px; }
+
+/* ── LAYOUT ─────────────────────────────────────────────────── */
+.wrap { max-width:1240px; margin:0 auto; padding:0 2rem; }
+section { padding:6rem 0; }
+
+/* ── NAVBAR ──────────────────────────────────────────────────── */
+#nav {
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  background:rgba(255,255,255,.97);
+  border-bottom:1px solid transparent;
+  transition:.3s var(--ease);
+}
+#nav.scrolled { border-bottom-color:var(--border); box-shadow:0 2px 20px rgba(10,22,40,.08); }
+.nav-inner {
+  max-width:1240px; margin:0 auto; padding:0 2rem;
+  display:flex; align-items:center; justify-content:space-between;
+  height:70px;
+}
+.nav-logo {
+  display:flex; align-items:center; gap:.6rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.5rem; font-weight:800; color:var(--navy);
+  text-transform:uppercase; letter-spacing:.04em;
+}
+.nav-logo .box {
+  width:36px; height:36px; background:var(--g1);
+  border-radius:6px; display:flex; align-items:center;
+  justify-content:center; font-size:.9rem; font-weight:900;
+  color:#fff; flex-shrink:0;
+}
+.nav-logo .txt em { color:var(--blue); font-style:normal; }
+.nav-links { display:flex; align-items:center; list-style:none; gap:.1rem; }
+.nav-links > li { position:relative; }
+.nav-links > li > a {
+  display:flex; align-items:center; gap:.25rem;
+  padding:.5rem .85rem; font-size:.875rem; font-weight:600;
+  color:var(--sub); border-radius:6px; transition:.2s;
+  text-transform:uppercase; letter-spacing:.03em; white-space:nowrap;
+}
+.nav-links > li > a:hover,
+.nav-links > li.has-drop:hover > a { color:var(--blue); }
+.nav-links > li > a .arr {
+  font-size:.6rem; opacity:.7; transition:.2s;
+  margin-top:1px;
+}
+.nav-links > li:hover > a .arr { transform:rotate(180deg); }
+.nav-drop {
+  position:absolute; top:calc(100% + 8px); left:0;
+  background:#fff; border:1px solid var(--border);
+  border-radius:var(--r); padding:.5rem; min-width:200px;
+  box-shadow:var(--shadow-lg); display:none; z-index:200;
+}
+.nav-drop.right { left:auto; right:0; }
+.nav-links > li:hover .nav-drop { display:block; }
+.nav-drop a {
+  display:block; padding:.48rem 1rem; font-size:.84rem;
+  font-weight:500; color:var(--sub); border-radius:5px;
+  transition:.18s; white-space:nowrap;
+}
+.nav-drop a:hover { color:var(--blue); background:var(--offwhite); }
+.nav-right { display:flex; align-items:center; gap:.75rem; }
+.btn-ghost {
+  padding:.48rem 1.2rem; border:1.5px solid var(--border);
+  border-radius:6px; font-size:.83rem; font-weight:600;
+  color:var(--sub); cursor:pointer; background:transparent;
+  transition:.2s; text-transform:uppercase; letter-spacing:.04em;
+  white-space:nowrap;
+}
+.btn-ghost:hover { border-color:var(--blue); color:var(--blue); }
+.btn-cta {
+  padding:.5rem 1.4rem; background:var(--g1);
+  border:none; border-radius:6px; font-size:.83rem;
+  font-weight:700; color:#fff; cursor:pointer; transition:.2s;
+  text-transform:uppercase; letter-spacing:.04em; white-space:nowrap;
+}
+.btn-cta:hover { opacity:.88; transform:translateY(-1px); }
+.hamburger {
+  display:none; flex-direction:column; gap:5px;
+  cursor:pointer; padding:4px;
+}
+.hamburger span {
+  display:block; width:22px; height:2px;
+  background:var(--navy); border-radius:2px; transition:.3s;
+}
+
+/* Mobile Menu */
+.mob-menu {
+  display:none; position:fixed; inset:0;
+  background:var(--navy); z-index:999;
+  flex-direction:column; align-items:center;
+  justify-content:center; gap:1.5rem;
+}
+.mob-menu.open { display:flex; }
+.mob-close {
+  position:absolute; top:1.4rem; right:1.5rem;
+  font-size:1.8rem; color:rgba(255,255,255,.5);
+  cursor:pointer; background:none; border:none;
+  font-family:'Barlow',sans-serif; line-height:1;
+}
+.mob-menu a {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.6rem; font-weight:700; color:rgba(255,255,255,.85);
+  text-transform:uppercase; letter-spacing:.04em; transition:.2s;
+}
+.mob-menu a:hover { color:var(--cyan); }
+
+/* ── HERO ────────────────────────────────────────────────────── */
+#hero {
+  min-height:100vh;
+  background:var(--navy2);
+  display:flex; flex-direction:column;
+  position:relative; overflow:hidden;
+  padding-top:70px;
+}
+.hero-bg {
+  position:absolute; inset:0; z-index:0;
+  background:
+    radial-gradient(ellipse 800px 600px at 70% 40%, rgba(0,168,232,.12) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 500px at 20% 80%, rgba(26,79,196,.15) 0%, transparent 70%);
+}
+.hero-grid-lines {
+  position:absolute; inset:0; z-index:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size:60px 60px;
+}
+.hero-accent-line {
+  position:absolute; top:0; left:0; right:0; height:3px;
+  background:var(--g1); z-index:2;
+}
+.hero-content {
+  position:relative; z-index:1;
+  display:flex; flex-direction:column; justify-content:center;
+  flex:1; padding:5rem 0 3rem;
+}
+.hero-badge {
+  display:inline-flex; align-items:center; gap:.6rem;
+  background:rgba(0,168,232,.12); border:1px solid rgba(0,168,232,.25);
+  color:var(--cyan); font-size:.75rem; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase;
+  padding:.4rem 1rem; border-radius:3px; margin-bottom:1.5rem;
+  width:fit-content;
+}
+.hero-badge .pulse {
+  width:7px; height:7px; background:var(--cyan);
+  border-radius:50%; animation:pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity:1; box-shadow:0 0 0 0 rgba(0,168,232,.5); }
+  50% { opacity:.6; box-shadow:0 0 0 6px rgba(0,168,232,0); }
+}
+.hero-h1 {
+  font-size:clamp(3rem,6vw,5.5rem);
+  font-weight:900; line-height:1;
+  color:#fff; letter-spacing:-.02em;
+  margin-bottom:1.5rem;
+  text-transform:uppercase;
+}
+.hero-h1 .line2 {
+  background:var(--g1);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  display:block;
+}
+.hero-tagline {
+  font-size:1.15rem; font-weight:400; color:rgba(255,255,255,.65);
+  max-width:560px; line-height:1.75; margin-bottom:2.5rem;
+}
+.hero-actions { display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:4rem; }
+.btn-primary {
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.85rem 2rem; background:var(--g1);
+  color:#fff; font-family:'Barlow Condensed',sans-serif;
+  font-size:1rem; font-weight:700; text-transform:uppercase;
+  letter-spacing:.06em; border-radius:4px; border:none;
+  cursor:pointer; transition:.25s var(--ease);
+  box-shadow:0 4px 20px rgba(26,79,196,.4);
+}
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(26,79,196,.5); }
+.btn-outline {
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.85rem 2rem; background:transparent;
+  color:#fff; font-family:'Barlow Condensed',sans-serif;
+  font-size:1rem; font-weight:700; text-transform:uppercase;
+  letter-spacing:.06em; border-radius:4px;
+  border:1.5px solid rgba(255,255,255,.3);
+  cursor:pointer; transition:.25s var(--ease);
+}
+.btn-outline:hover { border-color:var(--cyan); color:var(--cyan); }
+
+/* Hero Stats Bar */
+.hero-stats-bar {
+  position:relative; z-index:1;
+  background:rgba(255,255,255,.04);
+  border-top:1px solid rgba(255,255,255,.08);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.hero-stats-inner {
+  max-width:1240px; margin:0 auto; padding:0 2rem;
+  display:grid; grid-template-columns:repeat(5,1fr);
+}
+.hero-stat {
+  padding:1.5rem 0; text-align:center;
+  border-right:1px solid rgba(255,255,255,.08);
+  transition:.25s;
+}
+.hero-stat:last-child { border-right:none; }
+.hero-stat:hover { background:rgba(255,255,255,.03); }
+.hero-stat .icon { font-size:1.4rem; margin-bottom:.4rem; display:block; }
+.hero-stat .num {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:2rem; font-weight:900; color:#fff;
+  line-height:1; display:block;
+}
+.hero-stat .num em {
+  background:var(--g1);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  font-style:normal;
+}
+.hero-stat .lbl {
+  font-size:.75rem; font-weight:500; color:rgba(255,255,255,.5);
+  text-transform:uppercase; letter-spacing:.08em; margin-top:.3rem;
+  display:block;
+}
+
+/* ── SECTION HEADERS ─────────────────────────────────────────── */
+.sec-label {
+  display:inline-flex; align-items:center; gap:.5rem;
+  font-size:.72rem; font-weight:700; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--blue); margin-bottom:.6rem;
+}
+.sec-label::before {
+  content:''; width:20px; height:2px;
+  background:var(--blue); display:block;
+}
+.sec-title {
+  font-size:clamp(2rem,4vw,2.8rem);
+  font-weight:900; line-height:1.05;
+  text-transform:uppercase; color:var(--navy);
+  margin-bottom:.75rem;
+}
+.sec-title em {
+  font-style:normal; color:var(--blue);
+}
+.sec-sub { font-size:1.02rem; color:var(--sub); max-width:560px; line-height:1.7; }
+.sec-head { margin-bottom:3.5rem; }
+.sec-head-row {
+  display:flex; align-items:flex-end; justify-content:space-between;
+  gap:2rem; flex-wrap:wrap; margin-bottom:3.5rem;
+}
+
+/* ── ABOUT STRIP ─────────────────────────────────────────────── */
+#about { background:var(--offwhite); padding:5rem 0; }
+.about-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+.about-text h2 { margin-bottom:1rem; }
+.about-text p { color:var(--sub); font-size:1.02rem; line-height:1.8; margin-bottom:1.2rem; }
+.about-text p:last-of-type { margin-bottom:1.8rem; }
+.about-visual {
+  background:var(--g2); border-radius:12px; padding:3rem;
+  display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;
+  position:relative; overflow:hidden;
+}
+.about-visual::before {
+  content:''; position:absolute; top:-50px; right:-50px;
+  width:200px; height:200px; border-radius:50%;
+  border:40px solid rgba(255,255,255,.05);
+}
+.avc {
+  text-align:center; padding:1.5rem 1rem;
+  background:rgba(255,255,255,.06); border-radius:8px;
+}
+.avc .n {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:2.2rem; font-weight:900; color:#fff; display:block; line-height:1;
+}
+.avc .l { font-size:.78rem; color:rgba(255,255,255,.6); text-transform:uppercase; letter-spacing:.08em; margin-top:.3rem; }
+
+/* ── SERVICES ────────────────────────────────────────────────── */
+#services { background:var(--white); }
+/* Tab bar */
+.svc-tabs {
+  display:flex; flex-wrap:wrap; gap:0;
+  border-bottom:2px solid var(--border);
+  margin-bottom:0;
+}
+.svc-tab {
+  padding:.85rem 1.4rem; font-family:'Barlow Condensed',sans-serif;
+  font-size:.9rem; font-weight:700; text-transform:uppercase;
+  letter-spacing:.05em; color:var(--sub); cursor:pointer;
+  border-bottom:2px solid transparent; margin-bottom:-2px;
+  transition:.2s; white-space:nowrap; background:none;
+  border-top:none; border-left:none; border-right:none;
+  font-family:'Barlow Condensed',sans-serif;
+}
+.svc-tab:hover { color:var(--blue); }
+.svc-tab.active { color:var(--blue); border-bottom-color:var(--blue); }
+/* Panels */
+.svc-panel { display:none; }
+.svc-panel.active { display:grid; grid-template-columns:1fr 1.1fr; min-height:460px; }
+.svc-panel-left {
+  background:var(--offwhite); padding:3.5rem;
+  display:flex; flex-direction:column; justify-content:center;
+  border-right:1px solid var(--border);
+}
+.svc-panel-right { background:var(--white); }
+.svc-panel-right .svc-img {
+  width:100%; height:100%; min-height:380px;
+  display:flex; align-items:center; justify-content:center;
+  position:relative; overflow:hidden;
+}
+.svc-panel-right .svc-img .big-icon {
+  font-size:8rem; opacity:.15; user-select:none;
+  position:absolute;
+}
+.svc-panel-right .svc-img .svc-img-content {
+  position:relative; z-index:1; padding:2.5rem;
+  display:flex; flex-direction:column; gap:1rem;
+}
+.svc-img-content .svc-chip {
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.5rem 1rem; border-radius:4px;
+  font-size:.82rem; font-weight:600; text-transform:uppercase;
+  letter-spacing:.06em;
+}
+.svc-tag { font-size:.72rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--blue); margin-bottom:.6rem; display:flex; align-items:center; gap:.5rem; }
+.svc-tag::before { content:''; width:16px; height:2px; background:var(--blue); }
+.svc-panel-left h3 { font-size:2rem; font-weight:900; text-transform:uppercase; color:var(--navy); margin-bottom:.9rem; line-height:1.1; }
+.svc-panel-left .svc-desc { font-size:.97rem; color:var(--sub); line-height:1.78; margin-bottom:1.8rem; }
+.svc-feats { display:flex; flex-direction:column; gap:.7rem; margin-bottom:2rem; }
+.svc-feat { display:flex; align-items:flex-start; gap:.85rem; }
+.svc-feat .check {
+  width:20px; height:20px; border-radius:50%;
+  background:var(--g1); color:#fff; font-size:.65rem;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; margin-top:2px;
+}
+.svc-feat .feat-text { font-size:.92rem; color:var(--txt); line-height:1.5; }
+.svc-feat .feat-text strong { display:block; font-weight:700; color:var(--navy); margin-bottom:.1rem; }
+.svc-more {
+  display:inline-flex; align-items:center; gap:.5rem;
+  color:var(--blue); font-weight:700; font-size:.88rem;
+  text-transform:uppercase; letter-spacing:.06em;
+  transition:.2s;
+}
+.svc-more:hover { gap:.8rem; }
+.svc-more .arr { font-size:1rem; }
+
+/* Service image bg colors */
+.svc-bg-1 { background:linear-gradient(135deg, #e8f4ff, #ddeeff); }
+.svc-bg-2 { background:linear-gradient(135deg, #fff3e8, #ffeedd); }
+.svc-bg-3 { background:linear-gradient(135deg, #e8fff3, #ddf8ee); }
+.svc-bg-4 { background:linear-gradient(135deg, #f3e8ff, #eeddf8); }
+.svc-bg-5 { background:linear-gradient(135deg, #fff8e8, #fff3dd); }
+.svc-bg-6 { background:linear-gradient(135deg, #e8fff8, #ddfff3); }
+.svc-bg-7 { background:linear-gradient(135deg, #ffe8ee, #ffdde8); }
+.svc-bg-8 { background:linear-gradient(135deg, #e8f0ff, #ddebff); }
+
+/* ── WHY US ──────────────────────────────────────────────────── */
+#why { background:var(--navy); }
+.why-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+.why-left .sec-label { color:var(--cyan); }
+.why-left .sec-label::before { background:var(--cyan); }
+.why-left .sec-title { color:#fff; }
+.why-left .sec-sub { color:rgba(255,255,255,.55); max-width:100%; }
+.why-cards { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:2.5rem; }
+.why-card {
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--r); padding:1.5rem;
+  transition:.25s var(--ease);
+}
+.why-card:hover {
+  background:rgba(255,255,255,.08);
+  border-color:rgba(0,168,232,.3);
+  transform:translateY(-2px);
+}
+.why-card .ico {
+  width:44px; height:44px; border-radius:8px;
+  background:var(--g1); display:flex;
+  align-items:center; justify-content:center;
+  font-size:1.1rem; margin-bottom:1rem;
+}
+.why-card h4 {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.05rem; font-weight:800;
+  text-transform:uppercase; color:#fff;
+  margin-bottom:.4rem; letter-spacing:.02em;
+}
+.why-card p { font-size:.85rem; color:rgba(255,255,255,.5); line-height:1.6; }
+/* Metrics panel */
+.why-right {}
+.metrics-card {
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:12px; padding:2rem;
+}
+.metrics-card h4 {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.1rem; font-weight:800; text-transform:uppercase;
+  color:#fff; letter-spacing:.04em; margin-bottom:1.5rem;
+}
+.metric { margin-bottom:1.2rem; }
+.metric:last-child { margin-bottom:0; }
+.metric-top { display:flex; justify-content:space-between; margin-bottom:.45rem; }
+.metric-name { font-size:.82rem; color:rgba(255,255,255,.6); font-weight:500; }
+.metric-pct { font-size:.82rem; color:var(--cyan); font-weight:700; }
+.metric-bar { height:4px; background:rgba(255,255,255,.08); border-radius:2px; overflow:hidden; }
+.metric-fill {
+  height:100%; border-radius:2px;
+  background:var(--g1); width:0;
+  transition:width 1.6s var(--ease);
+}
+.why-stats { display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; margin-top:1.5rem; }
+.wstat {
+  background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08);
+  border-radius:8px; padding:1.25rem; text-align:center;
+}
+.wstat .n {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:2rem; font-weight:900;
+  background:var(--g1); -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent; display:block; line-height:1;
+}
+.wstat .l { font-size:.73rem; color:rgba(255,255,255,.45); text-transform:uppercase; letter-spacing:.08em; margin-top:.25rem; }
+
+/* ── TECH STACK ──────────────────────────────────────────────── */
+#tech { background:var(--offwhite); }
+.tech-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-top:3.5rem; }
+.tech-card {
+  background:var(--white); border:1px solid var(--border);
+  border-radius:var(--r); padding:2rem; position:relative;
+  overflow:hidden; transition:.25s var(--ease);
+}
+.tech-card::after {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  opacity:0; transition:.25s; border-radius:var(--r) var(--r) 0 0;
+}
+.tech-card.t1::after { background:var(--g1); }
+.tech-card.t2::after { background:linear-gradient(135deg,#f0a500,#e85a00); }
+.tech-card.t3::after { background:var(--g3); }
+.tech-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:transparent; }
+.tech-card:hover::after { opacity:1; }
+.tech-icon {
+  width:52px; height:52px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.5rem; margin-bottom:1.25rem;
+}
+.tech-card.t1 .tech-icon { background:#e8f4ff; }
+.tech-card.t2 .tech-icon { background:#fff3e8; }
+.tech-card.t3 .tech-icon { background:#e8fff3; }
+.tech-card h3 {
+  font-size:1.15rem; font-weight:900; text-transform:uppercase;
+  color:var(--navy); margin-bottom:.5rem; letter-spacing:.02em;
+}
+.tech-card p { font-size:.9rem; color:var(--sub); line-height:1.7; margin-bottom:1rem; }
+.tech-tags { display:flex; flex-wrap:wrap; gap:.4rem; }
+.ttag {
+  font-size:.7rem; font-weight:600; padding:.3rem .65rem;
+  border-radius:3px; background:var(--light);
+  border:1px solid var(--border); color:var(--sub);
+  text-transform:uppercase; letter-spacing:.04em;
+}
+
+/* ── PROCESS ─────────────────────────────────────────────────── */
+#process { background:var(--white); }
+.process-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-top:3.5rem; }
+.proc-card {
+  background:var(--offwhite); border:1px solid var(--border);
+  border-radius:var(--r); padding:2rem; position:relative;
+  transition:.25s var(--ease); overflow:hidden;
+}
+.proc-card:hover { transform:translateY(-3px); box-shadow:var(--shadow); border-color:var(--blue); }
+.proc-num {
+  position:absolute; top:1rem; right:1.5rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:5rem; font-weight:900; color:rgba(26,79,196,.07);
+  line-height:1;
+}
+.proc-step {
+  font-size:.7rem; font-weight:700; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--blue); margin-bottom:.75rem;
+}
+.proc-icon {
+  font-size:1.8rem; margin-bottom:.85rem; display:block;
+}
+.proc-card h3 {
+  font-size:1.1rem; font-weight:900; text-transform:uppercase;
+  color:var(--navy); margin-bottom:.5rem; letter-spacing:.02em;
+}
+.proc-card p { font-size:.88rem; color:var(--sub); line-height:1.7; }
+
+/* ── TEAM ────────────────────────────────────────────────────── */
+#team { background:var(--offwhite); }
+.team-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:1rem; margin-top:3.5rem; }
+.team-card {
+  background:var(--white); border:1px solid var(--border);
+  border-radius:var(--r); padding:1.5rem 1rem;
+  text-align:center; transition:.25s var(--ease);
+}
+.team-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:var(--blue); }
+.team-avatar {
+  width:64px; height:64px; border-radius:50%;
+  margin:0 auto .85rem;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.1rem; font-weight:900; color:#fff;
+}
+.team-name { font-size:.9rem; font-weight:700; color:var(--navy); margin-bottom:.2rem; }
+.team-role { font-size:.78rem; color:var(--sub); margin-bottom:.75rem; line-height:1.4; }
+.team-tags { display:flex; flex-wrap:wrap; gap:.25rem; justify-content:center; }
+.team-tag {
+  font-size:.65rem; padding:.2rem .5rem; border-radius:3px;
+  background:var(--light); color:var(--sub);
+  border:1px solid var(--border); font-weight:600;
+  text-transform:uppercase; letter-spacing:.03em;
+}
+
+/* ── JOIN ────────────────────────────────────────────────────── */
+#join { background:var(--white); }
+.join-layout { display:grid; grid-template-columns:1fr 1.4fr; gap:4.5rem; align-items:start; }
+.join-left h3 { font-size:1.4rem; font-weight:900; text-transform:uppercase; margin-bottom:.85rem; color:var(--navy); }
+.join-left > p { color:var(--sub); font-size:.97rem; line-height:1.8; margin-bottom:2rem; }
+.perk-list { display:flex; flex-direction:column; gap:.75rem; }
+.perk {
+  display:flex; align-items:flex-start; gap:.9rem;
+  padding:1rem 1.1rem; background:var(--offwhite);
+  border:1px solid var(--border); border-radius:var(--r);
+  transition:.2s;
+}
+.perk:hover { border-color:var(--blue); }
+.perk-ico {
+  width:36px; height:36px; border-radius:7px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:.95rem; flex-shrink:0;
+}
+.perk-ico.p1 { background:#e8f4ff; }
+.perk-ico.p2 { background:#e8fff3; }
+.perk-ico.p3 { background:#fff8e8; }
+.perk-ico.p4 { background:#f3e8ff; }
+.perk-ico.p5 { background:#ffe8ee; }
+.perk-body h5 { font-size:.9rem; font-weight:700; color:var(--navy); margin-bottom:.15rem; }
+.perk-body p { font-size:.8rem; color:var(--sub); line-height:1.55; }
+
+/* Form */
+.form-box {
+  background:var(--white); border:1.5px solid var(--border);
+  border-radius:12px; padding:2.25rem; box-shadow:var(--shadow);
+}
+.form-box h3 { font-size:1.2rem; font-weight:900; text-transform:uppercase; color:var(--navy); margin-bottom:.3rem; letter-spacing:.02em; }
+.form-sub { font-size:.84rem; color:var(--sub); margin-bottom:1.8rem; }
+.fg { margin-bottom:1rem; }
+.fl {
+  display:block; font-size:.73rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:.08em;
+  color:var(--sub); margin-bottom:.4rem;
+}
+.fi {
+  width:100%; background:var(--offwhite);
+  border:1.5px solid var(--border); border-radius:6px;
+  padding:.78rem 1rem; font-size:.93rem; color:var(--txt);
+  outline:none; transition:.22s; font-family:'Barlow',sans-serif;
+}
+.fi::placeholder { color:var(--muted); }
+.fi:focus { border-color:var(--blue); background:#fff; box-shadow:0 0 0 3px rgba(26,79,196,.1); }
+.frow { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.file-drop {
+  display:flex; align-items:center; justify-content:center; gap:.6rem;
+  padding:1.5rem; border:2px dashed var(--border); border-radius:6px;
+  cursor:pointer; font-size:.87rem; color:var(--sub);
+  transition:.22s; background:var(--offwhite);
+}
+.file-drop:hover { border-color:var(--blue); color:var(--blue); background:var(--light); }
+.fhide { display:none; }
+.fchosen { font-size:.76rem; color:var(--blue); margin-top:.3rem; min-height:1rem; }
+.btn-form {
+  width:100%; background:var(--g1); color:#fff;
+  font-family:'Barlow Condensed',sans-serif; font-weight:800;
+  font-size:1rem; text-transform:uppercase; letter-spacing:.06em;
+  padding:.9rem; border:none; border-radius:6px;
+  cursor:pointer; margin-top:.5rem; transition:.22s;
+}
+.btn-form:hover { opacity:.88; transform:translateY(-1px); }
+.btn-form:disabled { opacity:.4; cursor:not-allowed; transform:none; }
+.fnote { text-align:center; font-size:.74rem; color:var(--muted); margin-top:.65rem; line-height:1.5; }
+
+/* ── PORTFOLIO ───────────────────────────────────────────────── */
+#portfolio { background:var(--offwhite); }
+.portfolio-coming {
+  background:var(--white); border:2px dashed var(--border);
+  border-radius:12px; padding:5rem 2rem;
+  text-align:center; margin-top:3.5rem;
+}
+.portfolio-coming .pi { font-size:3rem; margin-bottom:1rem; }
+.portfolio-coming h3 { font-size:1.4rem; font-weight:900; text-transform:uppercase; color:var(--navy); margin-bottom:.5rem; }
+.portfolio-coming p { color:var(--sub); }
+
+/* ── TESTIMONIALS ────────────────────────────────────────────── */
+#testimonials { background:var(--white); }
+.testi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-top:3.5rem; }
+.testi-card {
+  background:var(--offwhite); border:1px solid var(--border);
+  border-radius:var(--r); padding:2rem; position:relative;
+  overflow:hidden; transition:.25s var(--ease);
+}
+.testi-card:hover { border-color:var(--blue); transform:translateY(-3px); box-shadow:var(--shadow); }
+.testi-card::before {
+  content:'"'; position:absolute; top:-.5rem; right:1.5rem;
+  font-size:6rem; font-family:Georgia,serif; color:rgba(26,79,196,.08);
+  line-height:1;
+}
+.testi-stars { color:#f0a500; font-size:1rem; margin-bottom:.85rem; letter-spacing:2px; }
+.testi-text { font-size:.95rem; color:var(--sub); line-height:1.78; margin-bottom:1.5rem; font-style:italic; }
+.testi-author { display:flex; align-items:center; gap:.85rem; }
+.tav {
+  width:44px; height:44px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Barlow Condensed',sans-serif; font-weight:900;
+  font-size:.9rem; color:#fff; flex-shrink:0;
+}
+.tname { font-size:.9rem; font-weight:700; color:var(--navy); }
+.trole { font-size:.77rem; color:var(--sub); }
+
+/* ── CONTACT ─────────────────────────────────────────────────── */
+#contact { background:var(--offwhite); }
+.contact-layout { display:grid; grid-template-columns:1fr 1.6fr; gap:4.5rem; align-items:start; }
+.contact-left h3 { font-size:1.35rem; font-weight:900; text-transform:uppercase; color:var(--navy); margin-bottom:.75rem; }
+.contact-left > p { color:var(--sub); font-size:.97rem; line-height:1.78; margin-bottom:2rem; }
+.clink-list { display:flex; flex-direction:column; gap:.7rem; margin-bottom:1.8rem; }
+.clink {
+  display:flex; align-items:center; gap:1rem;
+  background:var(--white); border:1px solid var(--border);
+  border-radius:var(--r); padding:1rem 1.2rem; transition:.22s;
+}
+.clink:hover { border-color:var(--blue); transform:translateX(3px); }
+.clink-ico {
+  width:42px; height:42px; border-radius:8px;
+  background:var(--light); display:flex;
+  align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0;
+}
+.clink-label { font-size:.7rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); font-weight:700; }
+.clink-val { font-size:.92rem; font-weight:600; color:var(--navy); }
+.secure-badge {
+  display:flex; align-items:center; gap:.5rem;
+  background:rgba(0,200,87,.06); border:1px solid rgba(0,200,87,.18);
+  border-radius:6px; padding:.8rem 1rem;
+  font-size:.8rem; color:#00a855; font-weight:600;
+}
+
+/* ── TOAST ───────────────────────────────────────────────────── */
+.toast {
+  position:fixed; bottom:2rem; right:2rem;
+  background:var(--white); border:1px solid var(--border);
+  border-radius:10px; padding:1rem 1.4rem;
+  display:flex; align-items:center; gap:.75rem;
+  box-shadow:var(--shadow-lg); z-index:9999;
+  transform:translateY(80px); opacity:0;
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1), opacity .3s;
+  max-width:320px; border-left:4px solid var(--blue);
+}
+.toast.err { border-left-color:#e84040; }
+.toast.show { transform:translateY(0); opacity:1; }
+.t-ico { font-size:1.3rem; }
+.t-msg { font-size:.88rem; font-weight:600; color:var(--txt); }
+
+/* ── FOOTER ──────────────────────────────────────────────────── */
+footer { background:var(--navy); }
+.footer-top { padding:4rem 0 3rem; }
+.footer-grid { display:grid; grid-template-columns:1.7fr 1fr 1fr 1fr; gap:3rem; }
+.foot-brand .logo2 {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.4rem; font-weight:900; color:#fff;
+  text-transform:uppercase; letter-spacing:.04em;
+  display:flex; align-items:center; gap:.5rem; margin-bottom:.8rem;
+}
+.foot-brand .logo2 .box2 {
+  width:28px; height:28px; background:var(--g1);
+  border-radius:5px; display:flex; align-items:center;
+  justify-content:center; font-size:.72rem; font-weight:900;
+  color:#fff; flex-shrink:0;
+}
+.foot-brand p { font-size:.86rem; color:rgba(255,255,255,.45); line-height:1.7; max-width:230px; margin-bottom:1.25rem; }
+.foot-badges { display:flex; gap:.5rem; flex-wrap:wrap; }
+.fbadge {
+  display:inline-flex; align-items:center; gap:.35rem;
+  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.6); font-size:.7rem; font-weight:600;
+  padding:.28rem .7rem; border-radius:3px;
+  text-transform:uppercase; letter-spacing:.04em;
+}
+.foot-col h5 {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.78rem; font-weight:800; text-transform:uppercase;
+  letter-spacing:.14em; color:rgba(255,255,255,.9); margin-bottom:1.1rem;
+}
+.foot-col ul { list-style:none; display:flex; flex-direction:column; gap:.55rem; }
+.foot-col ul li a { font-size:.85rem; color:rgba(255,255,255,.45); transition:.18s; }
+.foot-col ul li a:hover { color:var(--cyan); }
+.footer-bottom {
+  border-top:1px solid rgba(255,255,255,.07); padding:1.5rem 0;
+}
+.fbot-inner {
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:.75rem;
+}
+.fbot-inner p { font-size:.78rem; color:rgba(255,255,255,.35); }
+.fbot-inner a { color:var(--cyan); font-weight:600; }
+
+/* ── SCROLL REVEAL ───────────────────────────────────────────── */
+.sr { opacity:0; transform:translateY(24px); transition:opacity .6s var(--ease), transform .6s var(--ease); }
+.sr.in { opacity:1; transform:translateY(0); }
+.d1 { transition-delay:.08s; }
+.d2 { transition-delay:.16s; }
+.d3 { transition-delay:.24s; }
+.d4 { transition-delay:.32s; }
+.d5 { transition-delay:.40s; }
+
+/* ── RESPONSIVE ──────────────────────────────────────────────── */
+@media(max-width:1060px) {
+  .hero-stats-inner { grid-template-columns:repeat(3,1fr); }
+  .hero-stat:nth-child(4), .hero-stat:nth-child(5) { border-top:1px solid rgba(255,255,255,.08); }
+  .about-grid { grid-template-columns:1fr; }
+  .why-grid { grid-template-columns:1fr; }
+  .tech-grid { grid-template-columns:1fr 1fr; }
+  .team-grid { grid-template-columns:repeat(3,1fr); }
+  .join-layout { grid-template-columns:1fr; }
+  .contact-layout { grid-template-columns:1fr; }
+  .footer-grid { grid-template-columns:1fr 1fr; }
+  .svc-panel.active { grid-template-columns:1fr; }
+  .svc-panel-right { display:none; }
+}
+@media(max-width:768px) {
+  .nav-links, .nav-right .btn-ghost { display:none; }
+  .hamburger { display:flex; }
+  .hero-stats-inner { grid-template-columns:1fr 1fr; }
+  .hero-stat:nth-child(5) { grid-column:1/-1; }
+  .why-cards { grid-template-columns:1fr; }
+  .tech-grid { grid-template-columns:1fr; }
+  .process-grid { grid-template-columns:1fr; }
+  .team-grid { grid-template-columns:repeat(2,1fr); }
+  .testi-grid { grid-template-columns:1fr; }
+  .frow { grid-template-columns:1fr; }
+  .footer-grid { grid-template-columns:1fr; }
+  .hero-actions { flex-direction:column; }
+  .btn-primary, .btn-outline { justify-content:center; }
+  .why-stats { grid-template-columns:1fr 1fr; }
+}
+@media(max-width:480px) {
+  .svc-tabs { gap:0; }
+  .svc-tab { padding:.7rem .85rem; font-size:.78rem; }
+  .hero-h1 { font-size:2.8rem; }
+  .team-grid { grid-template-columns:repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="t-ico" id="t-ico">✅</span>
+  <span class="t-msg" id="t-msg"></span>
+</div>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mob-menu">
+  <button class="mob-close" id="mob-close">✕</button>
+  <a href="#hero" onclick="closeMob()">Home</a>
+  <a href="#about" onclick="closeMob()">About</a>
+  <a href="#services" onclick="closeMob()">Services</a>
+  <a href="#why" onclick="closeMob()">Why AXAS</a>
+  <a href="#tech" onclick="closeMob()">Technology</a>
+  <a href="#process" onclick="closeMob()">Process</a>
+  <a href="#team" onclick="closeMob()">Team</a>
+  <a href="#join" onclick="closeMob()">Careers</a>
+  <a href="#portfolio" onclick="closeMob()">Portfolio</a>
+  <a href="#contact" onclick="closeMob()">Contact</a>
+</div>
+
+<!-- NAVBAR -->
+<nav id="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="box">AX</div>
+      <div class="txt">AXAS <em>Solution</em></div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li class="has-drop">
+        <a href="#about">About Us <span class="arr">▾</span></a>
+        <div class="nav-drop">
+          <a href="#about">Our Story</a>
+          <a href="#team">Our Team</a>
+          <a href="#why">Why Choose Us</a>
+          <a href="#testimonials">Success Stories</a>
+        </div>
+      </li>
+      <li class="has-drop">
+        <a href="#services">Services <span class="arr">▾</span></a>
+        <div class="nav-drop">
+          <a href="#services">Website Development</a>
+          <a href="#services">Graphic Designing</a>
+          <a href="#services">Logo &amp; Branding</a>
+          <a href="#services">Thumbnail Design</a>
+          <a href="#services">Invitations &amp; Greetings</a>
+          <a href="#services">Certificate Design</a>
+          <a href="#services">E-Commerce Solutions</a>
+          <a href="#services">Brand Promotion</a>
+        </div>
+      </li>
+      <li class="has-drop">
+        <a href="#tech">Technology <span class="arr">▾</span></a>
+        <div class="nav-drop">
+          <a href="#tech">Supabase</a>
+          <a href="#tech">EmailJS</a>
+          <a href="#tech">React.js</a>
+          <a href="#tech">HTML / CSS / JS</a>
+          <a href="#tech">Figma &amp; Canva</a>
+        </div>
+      </li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#join">Careers</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="btn-ghost" onclick="scrollSec('#join')">Careers</button>
+      <button class="btn-cta" onclick="scrollSec('#contact')">Contact Us</button>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-accent-line"></div>
+  <div class="hero-content">
+    <div class="wrap">
+      <div class="hero-badge"><span class="pulse"></span> India's Digital Growth Partner</div>
+      <h1 class="hero-h1">
+        Powering Your
+        <span class="line2">Digital Growth</span>
+      </h1>
+      <p class="hero-tagline">
+        A team of 10 skilled professionals delivering world-class digital solutions — from stunning websites and creative designs to complete e-commerce platforms and strategic brand promotion. Everything your business needs to thrive online, under one roof.
+      </p>
+      <div class="hero-actions">
+        <a href="#services" class="btn-primary">🚀 Explore Our Services</a>
+        <a href="#contact" class="btn-outline">💬 Get a Free Consultation</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-stats-bar">
+    <div class="hero-stats-inner">
+      <div class="hero-stat">
+        <span class="icon">👥</span>
+        <span class="num"><em>10+</em></span>
+        <span class="lbl">Skilled Team Members</span>
+      </div>
+      <div class="hero-stat">
+        <span class="icon">🛠</span>
+        <span class="num"><em>8+</em></span>
+        <span class="lbl">Digital Services</span>
+      </div>
+      <div class="hero-stat">
+        <span class="icon">📱</span>
+        <span class="num"><em>100%</em></span>
+        <span class="lbl">Responsive Delivery</span>
+      </div>
+      <div class="hero-stat">
+        <span class="icon">⏱️</span>
+        <span class="num"><em>24h</em></span>
+        <span class="lbl">Response Guarantee</span>
+      </div>
+      <div class="hero-stat">
+        <span class="icon">⭐</span>
+        <span class="num"><em>98%</em></span>
+        <span class="lbl">Client Satisfaction</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-text sr">
+        <div class="sec-label">Who We Are</div>
+        <h2 class="sec-title">We Shape Your<br><em>Digital World</em></h2>
+        <p>AXAS Solution is a full-service digital agency based in India, built by a passionate team of 10 skilled professionals who believe every business — no matter its size — deserves a powerful online presence.</p>
+        <p>We combine deep technical expertise with creative excellence to deliver websites, brand identities, graphic designs, e-commerce platforms, and marketing strategies that actually move the needle for our clients. We don't just build things — we build growth.</p>
+        <p>From ambitious startups to established businesses, we serve clients across India with one unwavering commitment: delivering high-quality, beautifully crafted digital solutions that drive real results.</p>
+        <a href="#services" class="svc-more" style="font-size:.92rem;">Explore Our Services <span class="arr">→</span></a>
+      </div>
+      <div class="about-visual sr d2">
+        <div class="avc"><span class="n">10+</span><span class="l">Team Members</span></div>
+        <div class="avc"><span class="n">8+</span><span class="l">Services Offered</span></div>
+        <div class="avc"><span class="n">100%</span><span class="l">Mobile Responsive</span></div>
+        <div class="avc"><span class="n">24h</span><span class="l">Reply Guarantee</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head-row sr">
+      <div>
+        <div class="sec-label">What We Provide</div>
+        <h2 class="sec-title">Integrated Digital<br><em>Services</em></h2>
+      </div>
+      <p class="sec-sub" style="max-width:380px">From design to development, branding to promotion — everything your business needs, delivered by one expert team.</p>
+    </div>
+    <!-- TAB BAR -->
+    <div class="svc-tabs" id="svcTabs">
+      <button class="svc-tab active" data-tab="0">💻 Web Dev</button>
+      <button class="svc-tab" data-tab="1">🎨 Graphic Design</button>
+      <button class="svc-tab" data-tab="2">🧩 Logo &amp; Brand</button>
+      <button class="svc-tab" data-tab="3">🎥 Thumbnails</button>
+      <button class="svc-tab" data-tab="4">💌 Invitations</button>
+      <button class="svc-tab" data-tab="5">📜 Certificates</button>
+      <button class="svc-tab" data-tab="6">🛒 E-Commerce</button>
+      <button class="svc-tab" data-tab="7">📈 Promotion</button>
+    </div>
+
+    <!-- PANEL 0: Web Dev -->
+    <div class="svc-panel active" data-panel="0">
+      <div class="svc-panel-left">
+        <div class="svc-tag">Website Development</div>
+        <h3>Modern, Fast &amp; Fully Responsive Websites</h3>
+        <p class="svc-desc">We build professional websites tailored precisely to your business goals. Every project begins with deep requirement analysis, followed by custom UI/UX design in Figma, clean code development, and rigorous cross-device testing. The result: a website that is fast, beautiful, and converts visitors into paying customers — every time.</p>
+        <div class="svc-feats">
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Custom UI/UX Design in Figma</strong>Designed from scratch — no generic templates, no shortcuts. Every screen is crafted to match your brand and delight your users.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Cross-Device Tested Performance</strong>Flawless experience on mobile, tablet, and desktop across all major browsers, tested before every delivery.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Backend Integration with Supabase</strong>Full database, authentication, real-time features, and EmailJS contact forms — completely functional from launch day.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>SEO &amp; Performance Optimized</strong>Fast loading, Core Web Vitals optimized, semantically structured for Google — built to rank and be found.</div></div>
+        </div>
+        <a href="#contact" class="svc-more">Start Your Website Project <span class="arr">→</span></a>
+      </div>
+      <div class="svc-panel-right"><div class="svc-img svc-bg-1"><span class="big-icon">💻</span><div class="svc-img-content"><div class="svc-chip" style="background:#e8f4ff;color:#1a4fc4;">⚡ Fast &amp; Responsive</div><div class="svc-chip" style="background:#e8f4ff;color:#1a4fc4;">🔒 Secure Backend</div><div class="svc-chip" style="background:#e8f4ff;color:#1a4fc4;">📱 Mobile First</div><div class="svc-chip" style="background:#e8f4ff;color:#1a4fc4;">🎨 Custom Design</div></div></div></div>
+    </div>
+
+    <!-- PANEL 1: Graphic Design -->
+    <div class="svc-panel" data-panel="1">
+      <div class="svc-panel-left">
+        <div class="svc-tag">Graphic Designing</div>
+        <h3>Creative Visuals That Make Brands Unforgettable</h3>
+        <p class="svc-desc">First impressions are everything. Our graphic design team crafts stunning visuals that stop the scroll, communicate your message instantly, and leave a lasting impression across every platform and medium. We design with purpose — every element has a reason for being there.</p>
+        <div class="svc-feats">
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Social Media Designs</strong>Platform-optimized posts, stories, reels covers, and carousels for Instagram, Facebook, LinkedIn, and beyond — content that performs.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Posters &amp; Banners</strong>Print-ready and digital event, promotional, and sale designs — crafted to grab attention and drive action.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Brand Collateral</strong>Business cards, letterheads, email signatures, presentation decks — everything needed to look consistently professional.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Any Format Delivered</strong>Designs delivered in PNG, JPEG, PDF, SVG, or editable formats — print-ready and pixel-perfect.</div></div>
+        </div>
+        <a href="#contact" class="svc-more">Get Your Designs Done <span class="arr">→</span></a>
+      </div>
+      <div class="svc-panel-right"><div class="svc-img svc-bg-2"><span class="big-icon">🎨</span><div class="svc-img-content"><div class="svc-chip" style="background:#fff3e8;color:#c47a1a;">📱 Social Media</div><div class="svc-chip" style="background:#fff3e8;color:#c47a1a;">🖼 Posters &amp; Banners</div><div class="svc-chip" style="background:#fff3e8;color:#c47a1a;">🃏 Business Cards</div><div class="svc-chip" style="background:#fff3e8;color:#c47a1a;">📋 Presentations</div></div></div></div>
+    </div>
+
+    <!-- PANEL 2: Logo & Branding -->
+    <div class="svc-panel" data-panel="2">
+      <div class="svc-panel-left">
+        <div class="svc-tag">Logo &amp; Branding</div>
+        <h3>Build a Brand Identity That Commands Respect</h3>
+        <p class="svc-desc">Your logo is the face of your business — it must be unique, memorable, and professionally crafted. We design complete brand identity systems that go far beyond a logo: colors that evoke the right emotions, typography that expresses your brand voice, and comprehensive guidelines that keep everything consistent everywhere.</p>
+        <div class="svc-feats">
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Custom Logo Design</strong>Multiple unique concepts crafted specifically for your business — no clip art, no generic symbols, no recycled ideas.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Brand Color Palette</strong>Strategically chosen colors that evoke the right emotional response and build lasting brand recognition.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Typography System</strong>Curated font pairings that perfectly express your brand's personality and work across all touchpoints.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Full Brand Guidelines Document</strong>A complete usage manual so your brand stays visually consistent across every platform and material.</div></div>
+        </div>
+        <a href="#contact" class="svc-more">Brand Your Business Today <span class="arr">→</span></a>
+      </div>
+      <div class="svc-panel-right"><div class="svc-img svc-bg-3"><span class="big-icon">🧩</span><div class="svc-img-content"><div class="svc-chip" style="background:#e8fff3;color:#1ac47a;">🎯 Logo Design</div><div class="svc-chip" style="background:#e8fff3;color:#1ac47a;">🎨 Color Palette</div><div class="svc-chip" style="background:#e8fff3;color:#1ac47a;">✍️ Typography</div><div class="svc-chip" style="background:#e8fff3;color:#1ac47a;">📖 Brand Guide</div></div></div></div>
+    </div>
+
+    <!-- PANEL 3: Thumbnails -->
+    <div class="svc-panel" data-panel="3">
+      <div class="svc-panel-left">
+        <div class="svc-tag">Thumbnail Design</div>
+        <h3>Thumbnails That Get Clicked — Every Single Time</h3>
+        <p class="svc-desc">In the attention economy, your thumbnail is your first — and sometimes only — chance to earn a click. We design high-impact thumbnails for YouTube, Instagram Reels, podcasts, and any video platform, engineered with proven visual principles to maximize your click-through rate and spark genuine viewer curiosity.</p>
+        <div class="svc-feats">
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>YouTube Thumbnails</strong>Bold, high-contrast designs that command attention in a competitive feed and communicate the video's value instantly.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Consistent Brand Templates</strong>Template sets that maintain perfect visual consistency across your entire video library — building channel identity.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Fast Turnaround</strong>Quick delivery packages so your content schedule is never delayed by design production times.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>A/B Test Variants</strong>Multiple design options for each video so you can test and discover what drives the highest CTR for your audience.</div></div>
+        </div>
+        <a href="#contact" class="svc-more">Boost Your Click-Through Rate <span class="arr">→</span></a>
+      </div>
+      <div class="svc-panel-right"><div class="svc-img svc-bg-4"><span class="big-icon">🎥</span><div class="svc-img-content"><div class="svc-chip" style="background:#f3e8ff;color:#7a1ac4;">📺 YouTube</div><div class="svc-chip" style="background:#f3e8ff;color:#7a1ac4;">📊 High CTR</div><div class="svc-chip" style="background:#f3e8ff;color:#7a1ac4;">🔄 A/B Testing</div><div class="svc-chip" style="background:#f3e8ff;color:#7a1ac4;">⚡ Fast Delivery</div></div></div></div>
+    </div>
+
+    <!-- PANEL 4: Invitations -->
+    <div class="svc-panel" data-panel="4">
+      <div class="svc-panel-left">
+        <div class="svc-tag">Invitations &amp; Greetings</div>
+        <h3>Beautiful Designs for Every Special Occasion</h3>
+        <p class="svc-desc">Every special moment deserves a design that truly matches its significance. From intimate weddings to grand corporate events, from festive celebrations to heartfelt personal milestones — we craft custom invitation and greeting designs with the care, elegance, and emotion that each occasion demands.</p>
+        <div class="svc-feats">
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Wedding Invitations</strong>Elegant, fully personalized designs in traditional, modern, or fusion styles — your once-in-a-lifetime moment deserves perfection.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Event Invitations</strong>Corporate launches, birthday celebrations, receptions, conferences, and community events — any occasion covered.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Festival Greetings</strong>Diwali, Eid, Christmas, New Year, Pongal, Onam, and all Indian festivals — heartfelt designs for every celebration.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Business Greetings</strong>Professional greeting cards for client relationships, team appreciation, partnership milestones, and business occasions.</div></div>
+        </div>
+        <a href="#contact" class="svc-more">Design Your Invitation <span class="arr">→</span></a>
+      </div>
+      <div class="svc-panel-right"><div class="svc-img svc-bg-5"><span class="big-icon">💌</span><div class="svc-img-content"><div class="svc-chip" style="background:#fff8e8;color:#c4a01a;">💍 Weddings</div><div class="svc-chip" style="background:#fff8e8;color:#c4a01a;">🎉 Events</div><div class="svc-chip" style="background:#fff8e8;color:#c4a01a;">🪔 Festivals</div><div class="svc-chip" style="background:#fff8e8;color:#c4a01a;">🤝 Business</div></div></div></div>
+    </div>
+
+    <!-- PANEL 5: Certificates -->
+    <div class="svc-panel" data-panel="5">
+      <div class="svc-panel-left">
+        <div class="svc-tag">Certificate Design</div>
+        <h3>Professional Certificates That Carry Real Authority</h3>
+        <p class="svc-desc">A certificate should feel like an achievement genuinely worth framing and displaying. We design professional, print-ready certificates that carry visual weight and institutional credibility — making recipients feel genuinely proud to earn, display, and share them. Every certificate is a statement of quality.</p>
+        <div class="svc-feats">
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Course Certificates</strong>For online courses, offline training programs, skill workshops, bootcamps, and professional development programs.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Event Participation Certificates</strong>Competitions, hackathons, conferences, seminars, and community events — recognizing every participant's contribution.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Organizational Awards</strong>Employee recognition, performance excellence, appreciation awards, and leadership acknowledgment certificates.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Print-Ready Deliverables</strong>High-resolution PDF and fully editable files — ready for bulk printing at any size or digital distribution.</div></div>
+        </div>
+        <a href="#contact" class="svc-more">Design Your Certificate <span class="arr">→</span></a>
+      </div>
+      <div class="svc-panel-right"><div class="svc-img svc-bg-6"><span class="big-icon">📜</span><div class="svc-img-content"><div class="svc-chip" style="background:#e8fff8;color:#1ac4a0;">🎓 Courses</div><div class="svc-chip" style="background:#e8fff8;color:#1ac4a0;">🏆 Awards</div><div class="svc-chip" style="background:#e8fff8;color:#1ac4a0;">📋 Events</div><div class="svc-chip" style="background:#e8fff8;color:#1ac4a0;">🖨 Print-Ready</div></div></div></div>
+    </div>
+
+    <!-- PANEL 6: E-Commerce -->
+    <div class="svc-panel" data-panel="6">
+      <div class="svc-panel-left">
+        <div class="svc-tag">E-Commerce Solutions</div>
+        <h3>Complete Online Stores Built to Sell</h3>
+        <p class="svc-desc">Your e-commerce store is your 24/7 salesperson — it never sleeps, never takes a break, and sells to customers across India and beyond. We build fast, secure, conversion-focused online stores that are as easy for you to manage as they are delightful for customers to shop in.</p>
+        <div class="svc-feats">
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Full Product Management</strong>Add, edit, and manage unlimited products with variants, images, and detailed descriptions through an intuitive dashboard.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Payment Integration</strong>Razorpay, UPI, debit/credit cards, net banking, and wallets — every payment method Indian customers use is supported.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Order &amp; Inventory Management</strong>Track every order, manage stock levels in real-time, and receive automatic low-inventory alerts before you run out.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Mobile-First Shopping Experience</strong>Over 70% of Indian e-commerce happens on mobile — we build every store with mobile users as the primary audience.</div></div>
+        </div>
+        <a href="#contact" class="svc-more">Launch Your Online Store <span class="arr">→</span></a>
+      </div>
+      <div class="svc-panel-right"><div class="svc-img svc-bg-7"><span class="big-icon">🛒</span><div class="svc-img-content"><div class="svc-chip" style="background:#ffe8ee;color:#c4401a;">📦 Product Mgmt</div><div class="svc-chip" style="background:#ffe8ee;color:#c4401a;">💳 Payments</div><div class="svc-chip" style="background:#ffe8ee;color:#c4401a;">📊 Analytics</div><div class="svc-chip" style="background:#ffe8ee;color:#c4401a;">📱 Mobile-First</div></div></div></div>
+    </div>
+
+    <!-- PANEL 7: Brand Promotion -->
+    <div class="svc-panel" data-panel="7">
+      <div class="svc-panel-left">
+        <div class="svc-tag">Brand Promotion</div>
+        <h3>Grow Your Business With Strategic Digital Marketing</h3>
+        <p class="svc-desc">Building a great product is only half the battle — the other half is ensuring the right people know about it. We craft and execute data-driven brand promotion strategies that put your business in front of the right audience at the right time, turning attention into awareness and awareness into revenue.</p>
+        <div class="svc-feats">
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Social Media Marketing</strong>Proven growth strategies for Instagram, Facebook, LinkedIn, and YouTube — with measurable follower growth and engagement.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Content Creation</strong>Engaging captions, video scripts, reel concepts, and carousels — content that educates, entertains, and converts.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Advertising Creatives</strong>High-impact ad designs and copy optimized for Meta Ads, Google Ads, and display networks — designed to convert clicks into customers.</div></div>
+          <div class="svc-feat"><div class="check">✓</div><div class="feat-text"><strong>Monthly Performance Reporting</strong>Clear, jargon-free reports with key metrics, insights, and actionable next steps to continuously improve your results.</div></div>
+        </div>
+        <a href="#contact" class="svc-more">Grow Your Brand <span class="arr">→</span></a>
+      </div>
+      <div class="svc-panel-right"><div class="svc-img svc-bg-8"><span class="big-icon">📈</span><div class="svc-img-content"><div class="svc-chip" style="background:#e8f0ff;color:#1a4fc4;">📱 Social Media</div><div class="svc-chip" style="background:#e8f0ff;color:#1a4fc4;">✍️ Content</div><div class="svc-chip" style="background:#e8f0ff;color:#1a4fc4;">📣 Ads</div><div class="svc-chip" style="background:#e8f0ff;color:#1a4fc4;">📊 Analytics</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE -->
+<section id="why">
+  <div class="wrap">
+    <div class="why-grid">
+      <div>
+        <div class="why-left sr">
+          <div class="sec-label">Why AXAS Solution</div>
+          <h2 class="sec-title" style="color:#fff">Your Business Deserves<br><em style="color:var(--cyan)">the Best</em></h2>
+          <p class="sec-sub">We don't just deliver work — we build lasting partnerships grounded in quality, transparency, and a genuine commitment to your growth.</p>
+        </div>
+        <div class="why-cards sr d1">
+          <div class="why-card">
+            <div class="ico">🏆</div>
+            <h4>Team of 10 Experts</h4>
+            <p>Not a solo freelancer — a real team of developers, designers, and marketers working together on your project every day.</p>
+          </div>
+          <div class="why-card">
+            <div class="ico">🔗</div>
+            <h4>All Services One Place</h4>
+            <p>Stop managing multiple vendors. Logo, website, social media — AXAS handles everything with brand-perfect consistency.</p>
+          </div>
+          <div class="why-card">
+            <div class="ico">💰</div>
+            <h4>Affordable &amp; Scalable</h4>
+            <p>Premium quality at prices designed for Indian startups and SMEs, with packages that scale as your business grows.</p>
+          </div>
+          <div class="why-card">
+            <div class="ico">⚡</div>
+            <h4>Fast, No Compromise</h4>
+            <p>Strict deadlines respected, quality checks at every stage. We deliver on time without cutting corners — ever.</p>
+          </div>
+          <div class="why-card">
+            <div class="ico">📱</div>
+            <h4>100% Tested &amp; Responsive</h4>
+            <p>Every deliverable tested across 10+ device and browser combinations — flawless on every screen, every time.</p>
+          </div>
+          <div class="why-card">
+            <div class="ico">🔒</div>
+            <h4>Secure &amp; Private</h4>
+            <p>All client data encrypted in Supabase with Row Level Security. We take data privacy seriously and never sell your information.</p>
+          </div>
+        </div>
+      </div>
+      <div class="why-right sr d2">
+        <div class="metrics-card">
+          <h4>Quality Performance Metrics</h4>
+          <div class="metric">
+            <div class="metric-top"><span class="metric-name">Code Quality &amp; Maintainability</span><span class="metric-pct">99%</span></div>
+            <div class="metric-bar"><div class="metric-fill" data-w="99"></div></div>
+          </div>
+          <div class="metric">
+            <div class="metric-top"><span class="metric-name">UI/UX Design Excellence</span><span class="metric-pct">97%</span></div>
+            <div class="metric-bar"><div class="metric-fill" data-w="97"></div></div>
+          </div>
+          <div class="metric">
+            <div class="metric-top"><span class="metric-name">Client Satisfaction Score</span><span class="metric-pct">98%</span></div>
+            <div class="metric-bar"><div class="metric-fill" data-w="98"></div></div>
+          </div>
+          <div class="metric">
+            <div class="metric-top"><span class="metric-name">Core Web Vitals Performance</span><span class="metric-pct">95%</span></div>
+            <div class="metric-bar"><div class="metric-fill" data-w="95"></div></div>
+          </div>
+          <div class="metric">
+            <div class="metric-top"><span class="metric-name">On-Time Project Delivery</span><span class="metric-pct">96%</span></div>
+            <div class="metric-bar"><div class="metric-fill" data-w="96"></div></div>
+          </div>
+        </div>
+        <div class="why-stats">
+          <div class="wstat"><span class="n">98%</span><span class="l">Client Satisfaction</span></div>
+          <div class="wstat"><span class="n">96%</span><span class="l">On-Time Delivery</span></div>
+          <div class="wstat"><span class="n">100%</span><span class="l">Mobile Responsive</span></div>
+          <div class="wstat"><span class="n">2×</span><span class="l">Avg Growth Rate</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="tech">
+  <div class="wrap">
+    <div class="sec-head sr">
+      <div class="sec-label">Technology Stack</div>
+      <h2 class="sec-title">Built With <em>Modern Tools</em></h2>
+      <p class="sec-sub">We carefully select and master industry-leading technologies to ensure every project is fast, secure, scalable, and built to last.</p>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-card t1 sr">
+        <div class="tech-icon">⚡</div>
+        <h3>Supabase</h3>
+        <p>Our backbone for backend infrastructure. Supabase provides PostgreSQL database, real-time subscriptions, user authentication, Row Level Security, and file storage — giving every project enterprise-grade reliability with full data privacy, zero server management overhead, and instant scalability from day one.</p>
+        <div class="tech-tags"><span class="ttag">PostgreSQL</span><span class="ttag">Auth</span><span class="ttag">Real-time</span><span class="ttag">Storage</span><span class="ttag">Row Level Security</span><span class="ttag">Edge Functions</span></div>
+      </div>
+      <div class="tech-card t2 sr d1">
+        <div class="tech-icon">📧</div>
+        <h3>EmailJS</h3>
+        <p>Instant, reliable email notifications directly from contact forms — zero server-side code required. Every client enquiry is delivered to our team in real-time with custom-branded templates. EmailJS ensures no message is ever missed, providing a seamless, professional communication experience from the moment a client hits send.</p>
+        <div class="tech-tags"><span class="ttag">Instant Delivery</span><span class="ttag">Custom Templates</span><span class="ttag">Serverless</span><span class="ttag">Secure SMTP</span></div>
+      </div>
+      <div class="tech-card t3 sr d2">
+        <div class="tech-icon">🌐</div>
+        <h3>HTML5 &amp; CSS3</h3>
+        <p>Semantic, accessible HTML5 markup paired with modern CSS3 — Grid, Flexbox, custom properties, animations, and transitions. The solid foundation of every website we build: clean, efficient, cross-browser compatible, and built to last for years without technical debt accumulating.</p>
+        <div class="tech-tags"><span class="ttag">Semantic HTML</span><span class="ttag">CSS Grid</span><span class="ttag">Flexbox</span><span class="ttag">Animations</span><span class="ttag">Accessibility</span></div>
+      </div>
+      <div class="tech-card t1 sr">
+        <div class="tech-icon">🟨</div>
+        <h3>JavaScript (ES6+)</h3>
+        <p>Modern JavaScript powers every interactive experience — smooth animations, dynamic content, API integrations, form validation, and real-time updates. We write clean, maintainable ES6+ code with async/await patterns, proper error handling, and performance optimization built in from the start.</p>
+        <div class="tech-tags"><span class="ttag">ES6+</span><span class="ttag">Async/Await</span><span class="ttag">Fetch API</span><span class="ttag">DOM APIs</span><span class="ttag">Modules</span></div>
+      </div>
+      <div class="tech-card t2 sr d1">
+        <div class="tech-icon">⚛️</div>
+        <h3>React.js</h3>
+        <p>For complex, data-driven web applications and interactive dashboards, we use React — the industry standard for scalable UI. Component-based architecture delivers reusable, maintainable code that grows efficiently alongside your product, with hooks, context, and modern patterns for optimal performance.</p>
+        <div class="tech-tags"><span class="ttag">Components</span><span class="ttag">Hooks</span><span class="ttag">Context API</span><span class="ttag">Router</span><span class="ttag">Performance</span></div>
+      </div>
+      <div class="tech-card t3 sr d2">
+        <div class="tech-icon">🎨</div>
+        <h3>Figma &amp; Canva</h3>
+        <p>Every visual starts here. Figma drives our complete UI/UX workflow — wireframes, high-fidelity prototypes, component libraries, and full design systems. Canva complements with rapid, high-quality graphic production for social media, marketing assets, and brand collateral, at speed and scale.</p>
+        <div class="tech-tags"><span class="ttag">UI/UX Design</span><span class="ttag">Prototyping</span><span class="ttag">Design Systems</span><span class="ttag">Wireframes</span><span class="ttag">Brand Assets</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="wrap">
+    <div class="sec-head sr">
+      <div class="sec-label">Our Development Process</div>
+      <h2 class="sec-title">A Workflow Built for<br><em>Zero Compromise</em></h2>
+      <p class="sec-sub">Every project we deliver is fully responsive, rigorously tested, and performance-optimized. This structured process is how we guarantee it, every time.</p>
+    </div>
+    <div class="process-grid">
+      <div class="proc-card sr">
+        <div class="proc-num">01</div>
+        <div class="proc-step">Step 01</div>
+        <span class="proc-icon">🔍</span>
+        <h3>Requirement Analysis</h3>
+        <p>We begin with a thorough discovery session to understand your business goals, target audience, competitive landscape, and technical requirements. A detailed project scope document is produced — ensuring complete alignment between our team and yours before a single design or line of code is created.</p>
+      </div>
+      <div class="proc-card sr d1">
+        <div class="proc-num">02</div>
+        <div class="proc-step">Step 02</div>
+        <span class="proc-icon">🎨</span>
+        <h3>UI/UX Design</h3>
+        <p>Our designers craft wireframes and high-fidelity mockups in Figma, focusing on intuitive user flows, clear visual hierarchy, and on-brand aesthetics. All designs are presented for your review and approval before development begins — you see exactly what you're getting before we build it.</p>
+      </div>
+      <div class="proc-card sr d2">
+        <div class="proc-num">03</div>
+        <div class="proc-step">Step 03</div>
+        <span class="proc-icon">💻</span>
+        <h3>Development</h3>
+        <p>Approved designs are transformed into clean, well-structured, and maintainable code following best practices for accessibility, SEO, and performance. We build with modularity in mind — code that's easy to update, maintain, and scale as your business evolves over time.</p>
+      </div>
+      <div class="proc-card sr">
+        <div class="proc-num">04</div>
+        <div class="proc-step">Step 04</div>
+        <span class="proc-icon">🧪</span>
+        <h3>Testing</h3>
+        <p>Comprehensive cross-device testing across mobile phones (Android and iOS), tablets, and desktop browsers (Chrome, Safari, Firefox, Edge). Every interaction, form, animation, and edge case is tested — nothing ships with known issues. Quality assurance is non-negotiable at AXAS Solution.</p>
+      </div>
+      <div class="proc-card sr d1">
+        <div class="proc-num">05</div>
+        <div class="proc-step">Step 05</div>
+        <span class="proc-icon">🚀</span>
+        <h3>Performance Optimization</h3>
+        <p>Before delivery, every project undergoes a thorough performance audit — image compression, code minification, lazy loading, caching strategies, and Core Web Vitals improvements. We optimize for both user experience and Google's ranking signals so your website loads fast and ranks well.</p>
+      </div>
+      <div class="proc-card sr d2">
+        <div class="proc-num">06</div>
+        <div class="proc-step">Step 06</div>
+        <span class="proc-icon">📦</span>
+        <h3>Final Delivery</h3>
+        <p>We hand over your completed project with full source files, deployment guidance, and a detailed walkthrough session so your team knows exactly how everything works. Post-launch support is available — because we're with you beyond delivery, and your long-term success matters to us.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="wrap">
+    <div class="sec-head sr">
+      <div class="sec-label">Our Team</div>
+      <h2 class="sec-title">10 Professionals,<br><em>One Vision</em></h2>
+      <p class="sec-sub">A diverse, passionate team of developers, designers, marketers, and strategists — all united by a commitment to your digital growth.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card sr">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#1a4fc4,#00a8e8)">PR</div>
+        <div class="team-name">Prasanth R.</div>
+        <div class="team-role">Founder &amp; Lead Developer</div>
+        <div class="team-tags"><span class="team-tag">React</span><span class="team-tag">Supabase</span><span class="team-tag">UI/UX</span></div>
+      </div>
+      <div class="team-card sr d1">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#7b1ac4,#c41a7b)">AK</div>
+        <div class="team-name">Ananya K.</div>
+        <div class="team-role">Lead UI/UX Designer</div>
+        <div class="team-tags"><span class="team-tag">Figma</span><span class="team-tag">Prototyping</span><span class="team-tag">Systems</span></div>
+      </div>
+      <div class="team-card sr d2">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#00a8e8,#00d4a8)">VR</div>
+        <div class="team-name">Vijay R.</div>
+        <div class="team-role">Frontend Developer</div>
+        <div class="team-tags"><span class="team-tag">JS</span><span class="team-tag">CSS3</span><span class="team-tag">React</span></div>
+      </div>
+      <div class="team-card sr d3">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#f0a500,#e85a00)">SK</div>
+        <div class="team-name">Sneha K.</div>
+        <div class="team-role">Graphic Designer</div>
+        <div class="team-tags"><span class="team-tag">Canva</span><span class="team-tag">Illustrator</span><span class="team-tag">Brand</span></div>
+      </div>
+      <div class="team-card sr d4">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#1ac47b,#1a88c4)">RM</div>
+        <div class="team-name">Rajan M.</div>
+        <div class="team-role">Digital Marketer</div>
+        <div class="team-tags"><span class="team-tag">SMM</span><span class="team-tag">Content</span><span class="team-tag">Ads</span></div>
+      </div>
+      <div class="team-card sr">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#c41a4a,#7b1ac4)">KP</div>
+        <div class="team-name">Kavitha P.</div>
+        <div class="team-role">Content Strategist</div>
+        <div class="team-tags"><span class="team-tag">Copy</span><span class="team-tag">SEO</span><span class="team-tag">Strategy</span></div>
+      </div>
+      <div class="team-card sr d1">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#1a4fc4,#00d4a8)">AJ</div>
+        <div class="team-name">Arjun J.</div>
+        <div class="team-role">E-Commerce Developer</div>
+        <div class="team-tags"><span class="team-tag">Payments</span><span class="team-tag">Backend</span><span class="team-tag">APIs</span></div>
+      </div>
+      <div class="team-card sr d2">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#7b1ac4,#1a4fc4)">MS</div>
+        <div class="team-name">Meena S.</div>
+        <div class="team-role">Brand Designer</div>
+        <div class="team-tags"><span class="team-tag">Logos</span><span class="team-tag">Identity</span><span class="team-tag">Guide</span></div>
+      </div>
+      <div class="team-card sr d3">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#00a8e8,#1ac47b)">RT</div>
+        <div class="team-name">Ravi T.</div>
+        <div class="team-role">QA &amp; Testing Lead</div>
+        <div class="team-tags"><span class="team-tag">Testing</span><span class="team-tag">Performance</span><span class="team-tag">A11y</span></div>
+      </div>
+      <div class="team-card sr d4">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#e85a00,#c41a4a)">DN</div>
+        <div class="team-name">Divya N.</div>
+        <div class="team-role">Client Relations</div>
+        <div class="team-tags"><span class="team-tag">PM</span><span class="team-tag">Support</span><span class="team-tag">Comm.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN TEAM -->
+<section id="join">
+  <div class="wrap">
+    <div class="sec-head sr">
+      <div class="sec-label">Join Our Team</div>
+      <h2 class="sec-title">Build Your Career at<br><em>AXAS Solution</em></h2>
+      <p class="sec-sub">We're always looking for talented, driven individuals ready to do meaningful digital work and grow with a passionate team.</p>
+    </div>
+    <div class="join-layout">
+      <div class="sr">
+        <h3>Why Work With Us?</h3>
+        <p>At AXAS Solution, you won't be just another team member — you'll be a core contributor to real projects that make a measurable difference for businesses across India. We believe in learning by doing, creative freedom, and growing together.</p>
+        <div class="perk-list">
+          <div class="perk">
+            <div class="perk-ico p1">🚀</div>
+            <div class="perk-body"><h5>Real Projects, Real Impact</h5><p>Work on live websites, brand identities, and marketing campaigns for actual clients from your very first week — no busywork.</p></div>
+          </div>
+          <div class="perk">
+            <div class="perk-ico p2">🎓</div>
+            <div class="perk-body"><h5>Continuous Learning &amp; Mentorship</h5><p>Access to premium tools, courses, and direct mentorship from experienced professionals in your specific field.</p></div>
+          </div>
+          <div class="perk">
+            <div class="perk-ico p3">💡</div>
+            <div class="perk-body"><h5>Creative Freedom &amp; Ownership</h5><p>We value your ideas. Pitch concepts, experiment with new approaches, and take real ownership of your work and outcomes.</p></div>
+          </div>
+          <div class="perk">
+            <div class="perk-ico p4">🌍</div>
+            <div class="perk-body"><h5>Remote-Friendly Culture</h5><p>Work from anywhere in India. We prioritize quality, output, and collaboration — not physical presence or rigid hours.</p></div>
+          </div>
+          <div class="perk">
+            <div class="perk-ico p5">💰</div>
+            <div class="perk-body"><h5>Fair &amp; Competitive Compensation</h5><p>Pay based on your skills and contribution, with clear growth paths as AXAS Solution continues to expand across India.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="form-box sr d2">
+        <h3>Apply Now</h3>
+        <p class="form-sub">Submit your details — we respond within 48 hours to every application.</p>
+        <form id="joinForm" autocomplete="off">
+          <div class="frow">
+            <div class="fg">
+              <label class="fl" for="jName">Full Name *</label>
+              <input class="fi" id="jName" type="text" placeholder="Your full name" required/>
+            </div>
+            <div class="fg">
+              <label class="fl" for="jEmail">Email Address *</label>
+              <input class="fi" id="jEmail" type="email" placeholder="your@email.com" required/>
+            </div>
+          </div>
+          <div class="fg">
+            <label class="fl" for="jPhone">Phone Number *</label>
+            <input class="fi" id="jPhone" type="tel" placeholder="+91 XXXXX XXXXX" required/>
+          </div>
+          <div class="fg">
+            <label class="fl" for="jRole">Role Applying For *</label>
+            <select class="fi" id="jRole" required>
+              <option value="">Select a role...</option>
+              <option>Web Developer (HTML / CSS / JS)</option>
+              <option>React Developer</option>
+              <option>UI/UX Designer (Figma)</option>
+              <option>Graphic Designer (Canva / Illustrator)</option>
+              <option>Digital Marketing Specialist</option>
+              <option>Content Writer &amp; Strategist</option>
+              <option>E-Commerce Specialist</option>
+              <option>Video Editor / Thumbnail Designer</option>
+              <option>QA Tester</option>
+              <option>Client Relations / Project Manager</option>
+              <option>Other — Please specify in cover note</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label class="fl" for="jResume">Upload Resume *</label>
+            <label class="file-drop" for="jResume">📎 Click to upload your resume (PDF, DOC, DOCX)</label>
+            <input type="file" class="fhide" id="jResume" accept=".pdf,.doc,.docx" onchange="showFileName(this,'jChosen')"/>
+            <div class="fchosen" id="jChosen"></div>
+          </div>
+          <button type="submit" class="btn-form" id="jBtn">Submit Application</button>
+          <p class="fnote">🔒 Your application is stored securely and encrypted in Supabase. We never share your personal information.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="wrap">
+    <div class="sec-head-row sr">
+      <div>
+        <div class="sec-label">Our Work</div>
+        <h2 class="sec-title">Latest Projects &amp;<br><em>Case Studies</em></h2>
+      </div>
+      <p class="sec-sub" style="max-width:360px">Explore our growing portfolio of web development, design, branding, and e-commerce projects for clients across India.</p>
+    </div>
+    <div class="portfolio-coming sr">
+      <div class="pi">🎨</div>
+      <h3>Portfolio Coming Soon</h3>
+      <p>We're curating our best work for you. Check back soon to see real projects, detailed case studies, and measurable client results.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="wrap">
+    <div class="sec-head sr">
+      <div class="sec-label">Client Testimonials</div>
+      <h2 class="sec-title">What Our Clients<br><em>Are Saying</em></h2>
+      <p class="sec-sub">Real results, real feedback — from businesses that trusted AXAS Solution with their digital growth.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card sr">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The AXAS team completely transformed our online presence. They delivered a stunning, fast website that perfectly captures our brand — and our client enquiries have literally doubled since launch. Genuinely professional team, outstanding results. Highly recommend to any business serious about growth."</p>
+        <div class="testi-author">
+          <div class="tav" style="background:linear-gradient(135deg,#1a4fc4,#00a8e8)">RK</div>
+          <div><div class="tname">Rahul Kumar</div><div class="trole">Founder, TechRetail India</div></div>
+        </div>
+      </div>
+      <div class="testi-card sr d1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"AXAS designed our entire brand identity from scratch — logo, color palette, social media templates, everything. Our brand finally looks as professional and trustworthy as our service actually is. The team's attention to detail and commitment to getting it right was exceptional throughout."</p>
+        <div class="testi-author">
+          <div class="tav" style="background:linear-gradient(135deg,#7b1ac4,#c41a7b)">PS</div>
+          <div><div class="tname">Priya Sharma</div><div class="trole">Owner, Bloom Wellness Studio</div></div>
+        </div>
+      </div>
+      <div class="testi-card sr d2">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The e-commerce store AXAS built for us is incredible — smooth checkout, beautifully designed, and very easy for us to manage. Our sales have grown significantly and customers constantly tell us how much they enjoy the shopping experience. Best investment we made for our business."</p>
+        <div class="testi-author">
+          <div class="tav" style="background:linear-gradient(135deg,#00a8e8,#00d4a8)">AM</div>
+          <div><div class="tname">Arjun Mehta</div><div class="trole">Director, FreshKart Organics</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head-row sr">
+      <div>
+        <div class="sec-label">Contact Us</div>
+        <h2 class="sec-title">Let's Build Your<br><em>Success Together</em></h2>
+      </div>
+      <p class="sec-sub" style="max-width:380px">Ready to start your project or just exploring? We'd love to hear from you. Every enquiry receives a personal response within 24 hours.</p>
+    </div>
+    <div class="contact-layout">
+      <div class="sr">
+        <h3>Reach Us Directly</h3>
+        <p>Whether you have a specific project in mind, a question about our services, or simply want to explore how AXAS Solution can help your business grow digitally — don't hesitate to reach out. We're a friendly, approachable team who genuinely love talking about digital growth.</p>
+        <div class="clink-list">
+          <div class="clink">
+            <div class="clink-ico">📧</div>
+            <div><div class="clink-label">Email Us</div><div class="clink-val">axassolutions@india.com</div></div>
+          </div>
+          <div class="clink">
+            <div class="clink-ico">📱</div>
+            <div><div class="clink-label">WhatsApp</div><div class="clink-val">+91 XXXXX XXXXX</div></div>
+          </div>
+          <div class="clink">
+            <div class="clink-ico">📍</div>
+            <div><div class="clink-label">Location</div><div class="clink-val">India 🇮🇳 — Remote Friendly</div></div>
+          </div>
+          <div class="clink">
+            <div class="clink-ico">⏱️</div>
+            <div><div class="clink-label">Response Time</div><div class="clink-val">Within 24 hours — guaranteed</div></div>
+          </div>
+        </div>
+        <div class="secure-badge">
+          🔒 All data is encrypted and stored securely in Supabase with Row Level Security. Never shared with third parties.
+        </div>
+      </div>
+      <div class="form-box sr d2">
+        <h3>Send Us a Message</h3>
+        <p class="form-sub">Tell us about your project — we'll come back with a free consultation and proposal.</p>
+        <form id="contactForm" autocomplete="off">
+          <div class="frow">
+            <div class="fg">
+              <label class="fl" for="cName">Full Name *</label>
+              <input class="fi" id="cName" type="text" placeholder="Your name" required/>
+            </div>
+            <div class="fg">
+              <label class="fl" for="cEmail">Email Address *</label>
+              <input class="fi" id="cEmail" type="email" placeholder="your@email.com" required/>
+            </div>
+          </div>
+          <div class="fg">
+            <label class="fl" for="cService">Service Required *</label>
+            <select class="fi" id="cService" required>
+              <option value="">Select a service...</option>
+              <option>Website Development</option>
+              <option>Graphic Designing</option>
+              <option>Logo &amp; Branding</option>
+              <option>Thumbnail Design</option>
+              <option>Invitations &amp; Greetings</option>
+              <option>Certificate Design</option>
+              <option>E-Commerce Solutions</option>
+              <option>Brand Promotion</option>
+              <option>Multiple Services (Bundle)</option>
+              <option>Not sure yet — need consultation</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label class="fl" for="cBudget">Approximate Budget</label>
+            <select class="fi" id="cBudget">
+              <option value="">Select a budget range...</option>
+              <option>Under ₹5,000</option>
+              <option>₹5,000 – ₹15,000</option>
+              <option>₹15,000 – ₹35,000</option>
+              <option>₹35,000 – ₹75,000</option>
+              <option>₹75,000 and above</option>
+              <option>Let's discuss</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label class="fl" for="cMsg">Your Message *</label>
+            <textarea class="fi" id="cMsg" rows="4" placeholder="Tell us about your project, goals, timeline, and any specific requirements..." required></textarea>
+          </div>
+          <button type="submit" class="btn-form" id="cBtn">Send Message</button>
+          <p class="fnote">🔒 Secured by Supabase (database) + EmailJS (email notifications). Your data is never sold or shared with anyone.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="foot-brand">
+          <div class="logo2"><div class="box2">AX</div>AXAS Solution</div>
+          <p>Powering your digital growth with creative and technical excellence. A team of 10 passionate professionals helping businesses across India thrive online.</p>
+          <div class="foot-badges">
+            <span class="fbadge">🔒 Secure</span>
+            <span class="fbadge">✅ Trusted</span>
+            <span class="fbadge">🇮🇳 India</span>
+            <span class="fbadge">⚡ Fast</span>
+          </div>
+        </div>
+        <div class="foot-col">
+          <h5>Services</h5>
+          <ul>
+            <li><a href="#services">Website Development</a></li>
+            <li><a href="#services">Graphic Designing</a></li>
+            <li><a href="#services">Logo &amp; Branding</a></li>
+            <li><a href="#services">Thumbnail Design</a></li>
+            <li><a href="#services">Invitations &amp; Greetings</a></li>
+            <li><a href="#services">Certificate Design</a></li>
+            <li><a href="#services">E-Commerce Solutions</a></li>
+            <li><a href="#services">Brand Promotion</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="#about">Our Story</a></li>
+            <li><a href="#why">Why Choose AXAS</a></li>
+            <li><a href="#tech">Our Technology</a></li>
+            <li><a href="#process">Our Process</a></li>
+            <li><a href="#team">Meet the Team</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#join">Careers</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h5>Get In Touch</h5>
+          <ul>
+            <li><a href="mailto:axassolutions@india.com">📧 Email Us</a></li>
+            <li><a href="#contact">📱 WhatsApp</a></li>
+            <li><a href="#contact">🆓 Free Consultation</a></li>
+            <li><a href="#contact">📋 Request a Quote</a></li>
+            <li><a href="#join">💼 Join Our Team</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="wrap">
+      <div class="fbot-inner">
+        <p>© 2026 AXAS Solution — All Rights Reserved. Designed &amp; Developed by <a href="#hero">Prasanth</a>.</p>
+        <p>Powered by Supabase + EmailJS · Built with ❤️ in India 🇮🇳</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script>
+/* ──────────────────────────────────────────────────────────────
+   CONFIG — Replace these 6 values with your real credentials
+────────────────────────────────────────────────────────────── */
+var SUPABASE_URL  = 'https://jcfltnfxwdafyyjfhuoa.supabase.co';
+var SUPABASE_KEY  = 'sb_publishable_ELcz-GuOcXP06xGj1MQ-JQ_gvPVa_H2';
+var EJ_SERVICE    = 'service_20pwnyc';
+var EJ_CONTACT_T  = 'template_0ophfj';
+var EJ_JOIN_T     = '';
+var EJ_PUBLIC_KEY = 'aY0b2dcWAsyq1EKT0';
+
+/* ──────────────────────────────────────────────────────────────
+   INIT
+────────────────────────────────────────────────────────────── */
+var db;
+try {
+  db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+} catch(e) {
+  console.warn('Supabase not initialized — add your credentials.');
+}
+try {
+  emailjs.init(EJ_PUBLIC_KEY);
+} catch(e) {
+  console.warn('EmailJS not initialized — add your credentials.');
+}
+
+/* ──────────────────────────────────────────────────────────────
+   HELPERS
+────────────────────────────────────────────────────────────── */
+function scrollSec(sel) {
+  var el = document.querySelector(sel);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+function showFileName(input, targetId) {
+  var el = document.getElementById(targetId);
+  if (el) el.textContent = input.files[0] ? '📎 ' + input.files[0].name : '';
+}
+
+function showToast(msg, isError) {
+  var t  = document.getElementById('toast');
+  var ti = document.getElementById('t-ico');
+  var tm = document.getElementById('t-msg');
+  if (!t || !ti || !tm) return;
+  ti.textContent = isError ? '❌' : '✅';
+  tm.textContent = msg;
+  t.className    = 'toast' + (isError ? ' err' : '') + ' show';
+  setTimeout(function() { t.className = 'toast' + (isError ? ' err' : ''); }, 4500);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   NAVBAR SCROLL
+────────────────────────────────────────────────────────────── */
+window.addEventListener('scroll', function() {
+  var nav = document.getElementById('nav');
+  if (nav) nav.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+/* ──────────────────────────────────────────────────────────────
+   MOBILE MENU
+────────────────────────────────────────────────────────────── */
+function openMob() {
+  var m = document.getElementById('mob-menu');
+  if (m) m.classList.add('open');
+}
+function closeMob() {
+  var m = document.getElementById('mob-menu');
+  if (m) m.classList.remove('open');
+}
+var hbg = document.getElementById('hamburger');
+var mcl = document.getElementById('mob-close');
+if (hbg) hbg.addEventListener('click', openMob);
+if (mcl) mcl.addEventListener('click', closeMob);
+
+/* ──────────────────────────────────────────────────────────────
+   SERVICE TABS
+────────────────────────────────────────────────────────────── */
+var tabs   = document.querySelectorAll('.svc-tab');
+var panels = document.querySelectorAll('.svc-panel');
+
+tabs.forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    var idx = this.getAttribute('data-tab');
+    tabs.forEach(function(t) { t.classList.remove('active'); });
+    panels.forEach(function(p) { p.classList.remove('active'); });
+    this.classList.add('active');
+    var target = document.querySelector('.svc-panel[data-panel="' + idx + '"]');
+    if (target) target.classList.add('active');
+  });
+});
+
+/* ──────────────────────────────────────────────────────────────
+   SCROLL REVEAL
+────────────────────────────────────────────────────────────── */
+var srItems = document.querySelectorAll('.sr');
+var srObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in');
+      srObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+srItems.forEach(function(el) { srObserver.observe(el); });
+
+/* ──────────────────────────────────────────────────────────────
+   METRIC BAR ANIMATIONS
+────────────────────────────────────────────────────────────── */
+var metricsCards = document.querySelectorAll('.metrics-card');
+var barObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      var fills = entry.target.querySelectorAll('.metric-fill');
+      fills.forEach(function(f) {
+        var w = f.getAttribute('data-w');
+        if (w) f.style.width = w + '%';
+      });
+      barObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+metricsCards.forEach(function(card) { barObserver.observe(card); });
+
+/* ──────────────────────────────────────────────────────────────
+   CONTACT FORM SUBMIT
+────────────────────────────────────────────────────────────── */
+var cForm = document.getElementById('contactForm');
+if (cForm) {
+  cForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var btn = document.getElementById('cBtn');
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
+
+    var payload = {
+      name:    (document.getElementById('cName')    || {}).value || '',
+      email:   (document.getElementById('cEmail')   || {}).value || '',
+      service: (document.getElementById('cService') || {}).value || '',
+      budget:  (document.getElementById('cBudget')  || {}).value || '',
+      message: (document.getElementById('cMsg')     || {}).value || '',
+      submitted_at: new Date().toISOString(),
+      type: 'contact'
+    };
+
+    var dbPromise;
+    if (db) {
+      dbPromise = db.from('contact_submissions').insert([payload]).then(function(res) {
+        if (res.error) throw res.error;
+      });
+    } else {
+      dbPromise = Promise.resolve();
+    }
+
+    dbPromise.then(function() {
+      return  emailjs.send(EJ_SERVICE, EJ_CONTACT_T, {
+             name:    payload.name,
+             email:   payload.email,
+            service: payload.service,
+            budget:  payload.budget,
+              message: payload.message
+});
+    }).then(function() {
+      showToast("Message sent! We'll reply within 24 hours. 🚀", false);
+      cForm.reset();
+    }).catch(function(err) {
+      console.error(err);
+      showToast('Something went wrong — please try again or WhatsApp us.', true);
+    }).finally(function() {
+      if (btn) { btn.disabled = false; btn.textContent = 'Send Message'; }
+    });
+  });
+}
+
+/* ──────────────────────────────────────────────────────────────
+   JOIN FORM SUBMIT
+────────────────────────────────────────────────────────────── */
+var jForm = document.getElementById('joinForm');
+if (jForm) {
+  jForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var btn = document.getElementById('jBtn');
+    if (btn) { btn.disabled = true; btn.textContent = 'Submitting...'; }
+
+    var payload = {
+      name:  (document.getElementById('jName')  || {}).value || '',
+      email: (document.getElementById('jEmail') || {}).value || '',
+      phone: (document.getElementById('jPhone') || {}).value || '',
+      role:  (document.getElementById('jRole')  || {}).value || '',
+      submitted_at: new Date().toISOString(),
+      type: 'job_application'
+    };
+
+    var dbPromise;
+    if (db) {
+      dbPromise = db.from('job_applications').insert([payload]).then(function(res) {
+        if (res.error) throw res.error;
+      });
+    } else {
+      dbPromise = Promise.resolve();
+    }
+
+    dbPromise.then(function() {
+      return emailjs.send(EJ_SERVICE, EJ_JOIN_T, {
+        applicant_name:  payload.name,
+        applicant_email: payload.email,
+        applicant_phone: payload.phone,
+        role:            payload.role || 'Not specified'
+      });
+    }).then(function() {
+      showToast("Application submitted! We'll contact you within 48 hours. 🎉", false);
+      jForm.reset();
+      var fc = document.getElementById('jChosen');
+      if (fc) fc.textContent = '';
+    }).catch(function(err) {
+      console.error(err);
+      showToast('Something went wrong — please try again.', true);
+    }).finally(function() {
+      if (btn) { btn.disabled = false; btn.textContent = 'Submit Application'; }
+    });
+  });
+}
+</script>
+</body>
+</html>
