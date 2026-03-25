@@ -1808,7 +1808,7 @@ if (cForm) {
 
     var dbPromise;
     if (db) {
-      dbPromise = db.from('contact_submissions').insert([payload]).then(function(res) {
+      dbPromise = db.from('clients').insert([payload]).then(function(res) {
         if (res.error) throw res.error;
       });
     } else {
