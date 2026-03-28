@@ -6,7 +6,6 @@
 <title>AXAS Solution — Powering Your Digital Growth</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@500;600;700;800;900&display=swap" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
 /* ============================================================
@@ -595,44 +594,79 @@ section { padding:6rem 0; }
 /* Form */
 .form-box {
   background:var(--white); border:1.5px solid var(--border);
-  border-radius:12px; padding:2.25rem; box-shadow:var(--shadow);
+  border-radius:16px; padding:2.5rem; box-shadow:0 8px 40px rgba(10,22,40,.1);
+  position:relative; overflow:hidden;
 }
-.form-box h3 { font-size:1.2rem; font-weight:900; text-transform:uppercase; color:var(--navy); margin-bottom:.3rem; letter-spacing:.02em; }
-.form-sub { font-size:.84rem; color:var(--sub); margin-bottom:1.8rem; }
-.fg { margin-bottom:1rem; }
+.form-box::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:4px;
+  background:var(--g1);
+}
+.form-box h3 {
+  font-size:1.3rem; font-weight:900; text-transform:uppercase;
+  color:var(--navy); margin-bottom:.3rem; letter-spacing:.02em;
+}
+.form-sub { font-size:.85rem; color:var(--sub); margin-bottom:2rem; line-height:1.6; }
+.fg { margin-bottom:1.1rem; }
 .fl {
-  display:block; font-size:.73rem; font-weight:700;
-  text-transform:uppercase; letter-spacing:.08em;
-  color:var(--sub); margin-bottom:.4rem;
+  display:flex; align-items:center; gap:.35rem;
+  font-size:.71rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:.1em;
+  color:var(--sub); margin-bottom:.45rem;
 }
+.fl .req { color:var(--blue); font-size:.8rem; }
 .fi {
-  width:100%; background:var(--offwhite);
-  border:1.5px solid var(--border); border-radius:6px;
-  padding:.78rem 1rem; font-size:.93rem; color:var(--txt);
+  width:100%; background:#fafbfe;
+  border:1.5px solid var(--border); border-radius:8px;
+  padding:.85rem 1.1rem; font-size:.94rem; color:var(--txt);
   outline:none; transition:.22s; font-family:'Barlow',sans-serif;
+  appearance:none; -webkit-appearance:none;
 }
-.fi::placeholder { color:var(--muted); }
+.fi::placeholder { color:rgba(138,144,168,.7); }
 .fi:focus { border-color:var(--blue); background:#fff; box-shadow:0 0 0 3px rgba(26,79,196,.1); }
+select.fi {
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a6480' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 1rem center;
+  padding-right:2.5rem;
+  cursor:pointer;
+}
 .frow { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
 .file-drop {
-  display:flex; align-items:center; justify-content:center; gap:.6rem;
-  padding:1.5rem; border:2px dashed var(--border); border-radius:6px;
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:center; gap:.5rem;
+  padding:1.75rem; border:2px dashed var(--border); border-radius:8px;
   cursor:pointer; font-size:.87rem; color:var(--sub);
-  transition:.22s; background:var(--offwhite);
+  transition:.25s; background:#fafbfe; text-align:center;
+  line-height:1.5;
 }
-.file-drop:hover { border-color:var(--blue); color:var(--blue); background:var(--light); }
+.file-drop:hover { border-color:var(--blue); color:var(--blue); background:#f0f5ff; }
+.file-drop .drop-main { font-weight:600; font-size:.9rem; }
+.file-drop .drop-hint { font-size:.76rem; color:var(--muted); }
 .fhide { display:none; }
-.fchosen { font-size:.76rem; color:var(--blue); margin-top:.3rem; min-height:1rem; }
+.fchosen {
+  display:flex; align-items:center; gap:.5rem;
+  font-size:.78rem; color:var(--blue); margin-top:.4rem;
+  font-weight:600; min-height:1.2rem;
+  background:#f0f5ff; border-radius:4px;
+  padding:.3rem .65rem; width:fit-content;
+}
+.fchosen:empty { display:none; }
 .btn-form {
   width:100%; background:var(--g1); color:#fff;
   font-family:'Barlow Condensed',sans-serif; font-weight:800;
-  font-size:1rem; text-transform:uppercase; letter-spacing:.06em;
-  padding:.9rem; border:none; border-radius:6px;
-  cursor:pointer; margin-top:.5rem; transition:.22s;
+  font-size:1.05rem; text-transform:uppercase; letter-spacing:.07em;
+  padding:1rem; border:none; border-radius:8px;
+  cursor:pointer; margin-top:.75rem; transition:.25s;
+  display:flex; align-items:center; justify-content:center; gap:.6rem;
+  box-shadow:0 4px 16px rgba(26,79,196,.3);
 }
-.btn-form:hover { opacity:.88; transform:translateY(-1px); }
-.btn-form:disabled { opacity:.4; cursor:not-allowed; transform:none; }
-.fnote { text-align:center; font-size:.74rem; color:var(--muted); margin-top:.65rem; line-height:1.5; }
+.btn-form:hover { opacity:.9; transform:translateY(-2px); box-shadow:0 8px 24px rgba(26,79,196,.4); }
+.btn-form:disabled { opacity:.4; cursor:not-allowed; transform:none; box-shadow:none; }
+.fnote {
+  text-align:center; font-size:.73rem; color:var(--muted);
+  margin-top:.8rem; line-height:1.6;
+  display:flex; align-items:center; justify-content:center; gap:.3rem;
+}
 
 /* ── PORTFOLIO ───────────────────────────────────────────────── */
 #portfolio { background:var(--offwhite); }
@@ -806,9 +840,9 @@ footer { background:var(--navy); }
 <body>
 
 <!-- TOAST -->
-<div class="toast" id="toast">
-  <span class="t-ico" id="t-ico">✅</span>
-  <span class="t-msg" id="t-msg"></span>
+<div class="toast" id="axToast">
+  <span class="t-ico" id="axToastIco">✅</span>
+  <span class="t-msg" id="axToastMsg"></span>
 </div>
 
 <!-- MOBILE MENU -->
@@ -1204,7 +1238,7 @@ footer { background:var(--navy); }
       <div class="tech-card t1 sr">
         <div class="tech-icon">⚡</div>
         <h3>Supabase</h3>
-        <p>Our backbone for backend infrastructure. Supabase provides PostgreSQL database, real-time subscriptions, user authentication, Row Level Security, and file storage — giving every project enterprise-grade reliability with full data privacy, zero server management overhead, and instant scalability from day one.</p>
+        <p>Our preferred backend platform for client projects. Supabase provides PostgreSQL database, authentication, real-time features and secure storage — giving every website enterprise-grade reliability. Available as an add-on for projects requiring backend functionality.</p>
         <div class="tech-tags"><span class="ttag">PostgreSQL</span><span class="ttag">Auth</span><span class="ttag">Real-time</span><span class="ttag">Storage</span><span class="ttag">Row Level Security</span><span class="ttag">Edge Functions</span></div>
       </div>
       <div class="tech-card t2 sr d1">
@@ -1306,26 +1340,26 @@ footer { background:var(--navy); }
     </div>
     <div class="team-grid">
       <div class="team-card sr">
-        <div class="team-avatar" style="background:linear-gradient(135deg,#1a4fc4,#00a8e8)">PA</div>
-        <div class="team-name">Prasanth A.</div>
+        <div class="team-avatar" style="background:linear-gradient(135deg,#1a4fc4,#00a8e8)">PR</div>
+        <div class="team-name">Prasanth R.</div>
         <div class="team-role">Founder &amp; Lead Developer</div>
         <div class="team-tags"><span class="team-tag">React</span><span class="team-tag">Supabase</span><span class="team-tag">UI/UX</span></div>
       </div>
       <div class="team-card sr d1">
-        <div class="team-avatar" style="background:linear-gradient(135deg,#7b1ac4,#c41a7b)">PS</div>
-        <div class="team-name">Premkumar S.</div>
-        <div class="team-role">Data Analytics</div>
-        <div class="team-tags"><span class="team-tag">Networking</span><span class="team-tag">Data scan</span><span class="team-tag">Systems</span></div>
+        <div class="team-avatar" style="background:linear-gradient(135deg,#7b1ac4,#c41a7b)">AK</div>
+        <div class="team-name">Ananya K.</div>
+        <div class="team-role">Lead UI/UX Designer</div>
+        <div class="team-tags"><span class="team-tag">Figma</span><span class="team-tag">Prototyping</span><span class="team-tag">Systems</span></div>
       </div>
       <div class="team-card sr d2">
-        <div class="team-avatar" style="background:linear-gradient(135deg,#00a8e8,#00d4a8)">MA</div>
-        <div class="team-name">Manikandan A.</div>
+        <div class="team-avatar" style="background:linear-gradient(135deg,#00a8e8,#00d4a8)">VR</div>
+        <div class="team-name">Vijay R.</div>
         <div class="team-role">Frontend Developer</div>
         <div class="team-tags"><span class="team-tag">JS</span><span class="team-tag">CSS3</span><span class="team-tag">React</span></div>
       </div>
       <div class="team-card sr d3">
         <div class="team-avatar" style="background:linear-gradient(135deg,#f0a500,#e85a00)">SK</div>
-        <div class="team-name">Karthik.</div>
+        <div class="team-name">Sneha K.</div>
         <div class="team-role">Graphic Designer</div>
         <div class="team-tags"><span class="team-tag">Canva</span><span class="team-tag">Illustrator</span><span class="team-tag">Brand</span></div>
       </div>
@@ -1337,7 +1371,7 @@ footer { background:var(--navy); }
       </div>
       <div class="team-card sr">
         <div class="team-avatar" style="background:linear-gradient(135deg,#c41a4a,#7b1ac4)">KP</div>
-        <div class="team-name">Elakiya.</div>
+        <div class="team-name">Kavitha P.</div>
         <div class="team-role">Content Strategist</div>
         <div class="team-tags"><span class="team-tag">Copy</span><span class="team-tag">SEO</span><span class="team-tag">Strategy</span></div>
       </div>
@@ -1355,7 +1389,7 @@ footer { background:var(--navy); }
       </div>
       <div class="team-card sr d3">
         <div class="team-avatar" style="background:linear-gradient(135deg,#00a8e8,#1ac47b)">RT</div>
-        <div class="team-name">Ravishankar T.</div>
+        <div class="team-name">Ravi T.</div>
         <div class="team-role">QA &amp; Testing Lead</div>
         <div class="team-tags"><span class="team-tag">Testing</span><span class="team-tag">Performance</span><span class="team-tag">A11y</span></div>
       </div>
@@ -1410,20 +1444,20 @@ footer { background:var(--navy); }
         <form id="joinForm" autocomplete="off">
           <div class="frow">
             <div class="fg">
-              <label class="fl" for="jName">Full Name *</label>
+              <label class="fl" for="jName">Full Name <span class="req">*</span></label>
               <input class="fi" id="jName" type="text" placeholder="Your full name" required/>
             </div>
             <div class="fg">
-              <label class="fl" for="jEmail">Email Address *</label>
+              <label class="fl" for="jEmail">Email Address <span class="req">*</span></label>
               <input class="fi" id="jEmail" type="email" placeholder="your@email.com" required/>
             </div>
           </div>
           <div class="fg">
-            <label class="fl" for="jPhone">Phone Number *</label>
+            <label class="fl" for="jPhone">Phone Number <span class="req">*</span></label>
             <input class="fi" id="jPhone" type="tel" placeholder="+91 XXXXX XXXXX" required/>
           </div>
           <div class="fg">
-            <label class="fl" for="jRole">Role Applying For *</label>
+            <label class="fl" for="jRole">Role Applying For <span class="req">*</span></label>
             <select class="fi" id="jRole" required>
               <option value="">Select a role...</option>
               <option>Web Developer (HTML / CSS / JS)</option>
@@ -1440,14 +1474,27 @@ footer { background:var(--navy); }
             </select>
           </div>
           <div class="fg">
-            <label class="fl" for="jResume">Upload Resume *</label>
-            <label class="file-drop" for="jResume">📎 Click to upload your resume (PDF, DOC, DOCX)</label>
+            <label class="fl" for="jResume">Upload Resume <span class="req">*</span></label>
+            <label class="file-drop" for="jResume">
+              <span class="drop-ico">📎</span>
+              <span class="drop-main">Click to upload your resume</span>
+              <span class="drop-hint">PDF, DOC, DOCX &nbsp;·&nbsp; Max 5MB</span>
+            </label>
             <input type="file" class="fhide" id="jResume" accept=".pdf,.doc,.docx" onchange="showFileName(this,'jChosen')"/>
             <div class="fchosen" id="jChosen"></div>
           </div>
-          <button type="submit" class="btn-form" id="jBtn">Submit Application</button>
-          <p class="fnote">🔒 Your application is stored securely and encrypted in Supabase. We never share your personal information.</p>
+          <button type="submit" class="btn-form" id="jBtn">
+            <span class="btn-spinner"></span>
+            <span class="btn-lbl">Submit Application →</span>
+          </button>
+          <p class="fnote">🔒 Resume sent as email attachment to our team via EmailJS. You also receive a confirmation email immediately.</p>
         </form>
+        <div class="success-overlay" id="jSuccessOverlay">
+          <div class="sov-check">✓</div>
+          <div class="sov-title">Application Submitted!</div>
+          <p class="sov-text">Your resume was sent to our team. Check your inbox for a confirmation. HR will reply within 48 hours.</p>
+          <a href="#about" class="svc-more" style="margin-top:.5rem">Learn About AXAS →</a>
+        </div>
       </div>
     </div>
   </div>
@@ -1485,7 +1532,7 @@ footer { background:var(--navy); }
         <p class="testi-text">"The AXAS team completely transformed our online presence. They delivered a stunning, fast website that perfectly captures our brand — and our client enquiries have literally doubled since launch. Genuinely professional team, outstanding results. Highly recommend to any business serious about growth."</p>
         <div class="testi-author">
           <div class="tav" style="background:linear-gradient(135deg,#1a4fc4,#00a8e8)">RK</div>
-          <div><div class="tname">Pandi Selvam</div><div class="trole">Founder, Neura global India</div></div>
+          <div><div class="tname">Rahul Kumar</div><div class="trole">Founder, TechRetail India</div></div>
         </div>
       </div>
       <div class="testi-card sr d1">
@@ -1493,7 +1540,7 @@ footer { background:var(--navy); }
         <p class="testi-text">"AXAS designed our entire brand identity from scratch — logo, color palette, social media templates, everything. Our brand finally looks as professional and trustworthy as our service actually is. The team's attention to detail and commitment to getting it right was exceptional throughout."</p>
         <div class="testi-author">
           <div class="tav" style="background:linear-gradient(135deg,#7b1ac4,#c41a7b)">PS</div>
-          <div><div class="tname">Sundar pitchai</div><div class="trole">Ceo, Google</div></div>
+          <div><div class="tname">Priya Sharma</div><div class="trole">Owner, Bloom Wellness Studio</div></div>
         </div>
       </div>
       <div class="testi-card sr d2">
@@ -1501,7 +1548,7 @@ footer { background:var(--navy); }
         <p class="testi-text">"The e-commerce store AXAS built for us is incredible — smooth checkout, beautifully designed, and very easy for us to manage. Our sales have grown significantly and customers constantly tell us how much they enjoy the shopping experience. Best investment we made for our business."</p>
         <div class="testi-author">
           <div class="tav" style="background:linear-gradient(135deg,#00a8e8,#00d4a8)">AM</div>
-          <div><div class="tname">Mukesh Ambani</div><div class="trole">Onwer, Jio,Reliance,</div></div>
+          <div><div class="tname">Arjun Mehta</div><div class="trole">Director, FreshKart Organics</div></div>
         </div>
       </div>
     </div>
@@ -1525,7 +1572,7 @@ footer { background:var(--navy); }
         <div class="clink-list">
           <div class="clink">
             <div class="clink-ico">📧</div>
-            <div><div class="clink-label">Email Us</div><div class="clink-val">axassolutions@india.com</div></div>
+            <div><div class="clink-label">Email Us</div><div class="clink-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ee8f968f9d9d81829b9a8781809dae87808a878fc08d8183">[email&#160;protected]</a></div></div>
           </div>
           <div class="clink">
             <div class="clink-ico">📱</div>
@@ -1590,9 +1637,18 @@ footer { background:var(--navy); }
             <label class="fl" for="cMsg">Your Message *</label>
             <textarea class="fi" id="cMsg" rows="4" placeholder="Tell us about your project, goals, timeline, and any specific requirements..." required></textarea>
           </div>
-          <button type="submit" class="btn-form" id="cBtn">Send Message</button>
-          <p class="fnote">🔒 Secured by Supabase (database) + EmailJS (email notifications). Your data is never sold or shared with anyone.</p>
+          <button type="submit" class="btn-form" id="cBtn">
+            <span class="btn-spinner"></span>
+            <span class="btn-lbl">Send Message →</span>
+          </button>
+          <p class="fnote">🔒 All details emailed to our team instantly via EmailJS. You also receive a confirmation email right away.</p>
         </form>
+        <div class="success-overlay" id="cSuccessOverlay">
+          <div class="sov-check">✓</div>
+          <div class="sov-title">Message Sent!</div>
+          <p class="sov-text">Thank you! Check your inbox for a confirmation. We will reply within 24 hours with a free consultation.</p>
+          <a href="#services" class="svc-more" style="margin-top:.5rem">Explore Our Services →</a>
+        </div>
       </div>
     </div>
   </div>
@@ -1642,7 +1698,7 @@ footer { background:var(--navy); }
         <div class="foot-col">
           <h5>Get In Touch</h5>
           <ul>
-            <li><a href="mailto:axassolutions@india.com">📧 Email Us</a></li>
+            <li><a href="/cdn-cgi/l/email-protection#6001180113130f0c1514090f0e1320090e0409014e030f0d">📧 Email Us</a></li>
             <li><a href="#contact">📱 WhatsApp</a></li>
             <li><a href="#contact">🆓 Free Consultation</a></li>
             <li><a href="#contact">📋 Request a Quote</a></li>
@@ -1662,227 +1718,584 @@ footer { background:var(--navy); }
   </div>
 </footer>
 
-<!-- SCRIPTS -->
+<!-- ================================================================
+  AXAS SOLUTION — EmailJS Only Integration
+  - Contact Form  → Admin email + Client auto-reply
+  - Job Form      → Admin email (with resume base64) + Applicant reply
+  ================================================================ -->
+<style>
+/* ── ENHANCED FORM UI ──────────────────────────────────────────── */
+.fi.valid   { border-color:#00c853 !important; background:#f6fffb !important; }
+.fi.invalid { border-color:#e84040 !important; background:#fff6f6 !important; }
+.fi.valid:focus   { box-shadow:0 0 0 3px rgba(0,200,83,.13) !important; }
+.fi.invalid:focus { box-shadow:0 0 0 3px rgba(232,64,64,.13) !important; }
+
+.btn-form {
+  display:flex; align-items:center; justify-content:center; gap:.65rem;
+}
+.btn-spinner {
+  display:none; width:18px; height:18px;
+  border:2.5px solid rgba(255,255,255,.35);
+  border-top-color:#fff; border-radius:50%;
+  animation:spin .7s linear infinite; flex-shrink:0;
+}
+.btn-form.loading .btn-spinner  { display:block; }
+.btn-form.loading .btn-lbl      { opacity:.85; }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+.file-drop { cursor:pointer; user-select:none; transition:.22s; }
+.file-drop.picked { border-color:#00c853 !important; background:#f6fffb !important; color:#00a84a !important; }
+
+/* Reading file progress dots */
+.reading-dots::after {
+  content:''; animation:dots 1.2s steps(4,end) infinite;
+}
+@keyframes dots {
+  0%{content:''} 25%{content:'.'} 50%{content:'..'} 75%{content:'...'} 100%{content:''}
+}
+
+/* Success overlay */
+.success-overlay {
+  display:none; flex-direction:column; align-items:center;
+  text-align:center; padding:2.5rem 1.5rem; gap:.85rem;
+}
+.success-overlay.show { display:flex; }
+.sov-check {
+  width:68px; height:68px; border-radius:50%;
+  background:linear-gradient(135deg,#00c853,#00b248);
+  display:flex; align-items:center; justify-content:center;
+  font-size:2rem; color:#fff;
+  animation:popIn .55s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes popIn { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+.sov-title {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.4rem; font-weight:900; text-transform:uppercase;
+  color:var(--navy); letter-spacing:.02em;
+}
+.sov-text { font-size:.9rem; color:var(--sub); line-height:1.65; max-width:300px; }
+
+/* Toast */
+.toast { position:fixed; bottom:2rem; right:2rem; min-width:290px;
+  background:#fff; border:1px solid var(--border); border-radius:10px;
+  padding:1rem 1.4rem; display:flex; align-items:center; gap:.75rem;
+  box-shadow:0 12px 40px rgba(10,22,40,.14); z-index:9999;
+  transform:translateY(90px); opacity:0;
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .3s ease;
+  border-left:4px solid var(--blue);
+}
+.toast.err { border-left-color:#e84040; }
+.toast.show { transform:translateY(0); opacity:1; }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-/* ──────────────────────────────────────────────────────────────
-   CONFIG — Replace these 6 values with your real credentials
-────────────────────────────────────────────────────────────── */
-var SUPABASE_URL  = 'https://jcfltnfxwdafyyjfhuoa.supabase.co';
-var SUPABASE_KEY  = 'sb_publishable_ELcz-GuOcXP06xGj1MQ-JQ_gvPVa_H2';
-var EJ_SERVICE    = 'service_20pwnyc';
-var EJ_CONTACT_T  = 'template_0oephfj';
-var EJ_JOIN_T     = 'template_ss2cmu8';
-var EJ_PUBLIC_KEY = 'aY0b2dcWAsyq1EKT0';
+/* ================================================================
+   CONFIGURATION — Fill in your EmailJS credentials below
+   ================================================================ */
+var EJ = {
+  publicKey:   'aY0b2dcWAsyq1EKT0',
+  serviceId:   'service_gxtfb53',
+  contactTpl:  'template_0oephfj',
+  joinTpl:     'template_ss2cmu8',
+  adminEmail:  'axassolutions@india.com',
+  adminName:   'AXAS Solution Team',
+  company:     'AXAS Solution',
+  phone:       '+91 7558x4x46x',
+  whatsapp:    '+91 7558x14x46x',
+  website:     'www.axassolution.netlify.app',
+  location:    'India'
+};
+/* ================================================================ */
 
-/* ──────────────────────────────────────────────────────────────
-   INIT
-────────────────────────────────────────────────────────────── */
-var db;
-try {
-  db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-} catch(e) {
-  console.warn('Supabase not initialized — add your credentials.');
-}
-try {
-  emailjs.init(EJ_PUBLIC_KEY);
-} catch(e) {
-  console.warn('EmailJS not initialized — add your credentials.');
-}
+/* ── INIT ─────────────────────────────────────────────────────── */
+(function() {
+  try { emailjs.init(EJ.publicKey); }
+  catch(e) { console.warn('[AXAS] EmailJS init:', e.message); }
+})();
 
-/* ──────────────────────────────────────────────────────────────
-   HELPERS
-────────────────────────────────────────────────────────────── */
+/* ── HELPERS ─────────────────────────────────────────────────── */
 function scrollSec(sel) {
   var el = document.querySelector(sel);
   if (el) el.scrollIntoView({ behavior: 'smooth' });
 }
 
-function showFileName(input, targetId) {
-  var el = document.getElementById(targetId);
-  if (el) el.textContent = input.files[0] ? '📎 ' + input.files[0].name : '';
+function nowISO() { return new Date().toISOString(); }
+
+function fmtDate(iso) {
+  try {
+    return new Date(iso).toLocaleString('en-IN', {
+      day:'2-digit', month:'long', year:'numeric',
+      hour:'2-digit', minute:'2-digit', hour12:true,
+      timeZone:'Asia/Kolkata'
+    }) + ' IST';
+  } catch(e) { return iso; }
 }
 
-function showToast(msg, isError) {
-  var t  = document.getElementById('toast');
-  var ti = document.getElementById('t-ico');
-  var tm = document.getElementById('t-msg');
-  if (!t || !ti || !tm) return;
-  ti.textContent = isError ? '❌' : '✅';
-  tm.textContent = msg;
-  t.className    = 'toast' + (isError ? ' err' : '') + ' show';
-  setTimeout(function() { t.className = 'toast' + (isError ? ' err' : ''); }, 4500);
+function showToast(msg, isErr) {
+  var t = document.getElementById('axToast');
+  var i = document.getElementById('axToastIco');
+  var m = document.getElementById('axToastMsg');
+  if (!t) return;
+  i.textContent = isErr ? '❌' : '✅';
+  m.textContent = msg;
+  t.className = 'toast show' + (isErr ? ' err' : '');
+  clearTimeout(t._tid);
+  t._tid = setTimeout(function() { t.className = 'toast' + (isErr ? ' err' : ''); }, 5000);
 }
 
-/* ──────────────────────────────────────────────────────────────
-   NAVBAR SCROLL
-────────────────────────────────────────────────────────────── */
+function setBtn(id, loading, txt) {
+  var btn = document.getElementById(id);
+  if (!btn) return;
+  btn.disabled = loading;
+  btn.classList.toggle('loading', loading);
+  var lbl = btn.querySelector('.btn-lbl');
+  if (lbl) lbl.textContent = txt;
+}
+
+function showSuccess(formId, overlayId) {
+  var form = document.getElementById(formId);
+  var ov   = document.getElementById(overlayId);
+  if (form) form.style.display = 'none';
+  if (ov)   ov.classList.add('show');
+}
+
+function validateEl(el) {
+  if (!el) return true;
+  var ok = el.value.trim().length > 0 && el.checkValidity();
+  el.classList.toggle('valid', ok);
+  el.classList.toggle('invalid', !ok);
+  return ok;
+}
+
+/* ── FILE → BASE64 ────────────────────────────────────────────── */
+function fileToBase64(file) {
+  return new Promise(function(resolve, reject) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var b64 = e.target.result.split(',')[1] || '';
+      resolve(b64);
+    };
+    reader.onerror = function() { reject(new Error('File read failed')); };
+    reader.readAsDataURL(file);
+  });
+}
+
+function fileSizeKB(file) {
+  return file ? (file.size / 1024).toFixed(1) + ' KB' : '—';
+}
+
+/* ================================================================
+   EMAIL HTML BUILDER — shared wrapper
+   ================================================================ */
+function emailShell(gradTop, gradBot, icon, title, subtitle, bodyHtml) {
+  return '<!DOCTYPE html><html><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width"/>' +
+  '<style>' +
+  'body{margin:0;padding:0;background:#eef1f8;font-family:Arial,Helvetica,sans-serif;}' +
+  '.wrap{max-width:620px;margin:0 auto;padding:28px 16px;}' +
+  '.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 6px 28px rgba(10,22,40,.1);}' +
+  '.hdr{background:linear-gradient(135deg,' + gradTop + ',' + gradBot + ');padding:32px 36px;}' +
+  '.hdr-brand{font-size:13px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:18px;}' +
+  '.hdr-icon{font-size:44px;display:block;margin-bottom:10px;}' +
+  '.hdr-title{font-size:26px;font-weight:900;color:#fff;margin:0;letter-spacing:-.5px;line-height:1.15;}' +
+  '.hdr-sub{font-size:13px;color:rgba(255,255,255,.7);margin-top:7px;}' +
+  '.body{padding:32px 36px;}' +
+  '.alert-box{background:#fff8e6;border-left:4px solid #f0a500;border-radius:6px;padding:13px 16px;font-size:13px;color:#7a5a00;margin-bottom:24px;line-height:1.6;}' +
+  '.section{margin-bottom:26px;}' +
+  '.sec-lbl{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8a90a8;padding-bottom:8px;border-bottom:1px solid #eef1f8;margin-bottom:13px;}' +
+  '.row{display:flex;margin-bottom:9px;}' +
+  '.rl{font-size:13px;font-weight:700;color:#1a2340;min-width:145px;flex-shrink:0;padding-right:10px;}' +
+  '.rv{font-size:13px;color:#5a6480;flex:1;line-height:1.5;}' +
+  '.msg-box{background:#f8f9fc;border:1px solid #dde2ee;border-radius:8px;padding:16px;font-size:14px;color:#5a6480;line-height:1.75;}' +
+  '.action-btn{display:inline-block;background:linear-gradient(135deg,#1a4fc4,#00a8e8);color:#fff !important;font-size:14px;font-weight:700;letter-spacing:.04em;text-decoration:none;padding:13px 26px;border-radius:6px;margin-top:6px;}' +
+  '.resume-btn{display:inline-flex;align-items:center;gap:9px;background:#f0f7ff;border:1.5px solid #b8d4ff;border-radius:7px;padding:13px 18px;color:#1a4fc4;font-weight:700;font-size:14px;text-decoration:none;margin-top:6px;}' +
+  '.divider{height:1px;background:#eef1f8;margin:22px 0;}' +
+  '.badge{display:inline-block;background:rgba(26,79,196,.08);color:#1a4fc4;border:1px solid rgba(26,79,196,.18);border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;margin-bottom:16px;}' +
+  '.steps-box{background:#f8f9fc;border-radius:8px;padding:18px;font-size:13px;color:#5a6480;line-height:1.8;}' +
+  '.new-pill{display:inline-block;background:#e8f9f0;color:#00a855;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.05em;float:right;}' +
+  '.footer-bar{background:#f8f9fc;border-top:1px solid #eef1f8;padding:22px 36px;text-align:center;}' +
+  '.footer-bar p{font-size:12px;color:#8a90a8;margin:0 0 5px;line-height:1.6;}' +
+  '.footer-bar a{color:#1a4fc4;text-decoration:none;font-weight:600;}' +
+  '@media(max-width:480px){.hdr{padding:22px 20px;}.body{padding:22px 20px;}.footer-bar{padding:18px 20px;}.rl{min-width:110px;}}' +
+  '</style></head><body>' +
+  '<div class="wrap"><div class="card">' +
+  '<div class="hdr">' +
+  '<div class="hdr-brand">AXAS · Solution &nbsp; <span class="new-pill">● ' + (subtitle.indexOf('Application') >= 0 ? 'NEW APPLICATION' : 'NEW ENQUIRY') + '</span></div>' +
+  '<span class="hdr-icon">' + icon + '</span>' +
+  '<div class="hdr-title">' + title + '</div>' +
+  '<div class="hdr-sub">' + subtitle + '</div>' +
+  '</div>' +
+  '<div class="body">' + bodyHtml + '</div>' +
+  '<div class="footer-bar">' +
+  '<p>📧 <a href="mailto:' + EJ.adminEmail + '">' + EJ.adminEmail + '</a> &nbsp;|&nbsp; 📱 ' + EJ.phone + ' &nbsp;|&nbsp; 🌐 <a href="https://' + EJ.website + '">' + EJ.website + '</a></p>' +
+  '<p style="margin-top:6px;font-size:11px;">© 2026 ' + EJ.company + ' — All Rights Reserved &nbsp;|&nbsp; 🇮🇳 India &nbsp;|&nbsp; Powered by EmailJS</p>' +
+  '</div>' +
+  '</div></div>' +
+  '</body></html>';
+}
+
+/* ================================================================
+   CONTACT EMAILS
+   ================================================================ */
+
+/* Admin: new enquiry notification */
+function contactAdminHtml(d) {
+  var ts = fmtDate(d.ts);
+  var body =
+    '<div class="badge">📬 New Client Enquiry</div>' +
+    '<p style="font-size:14px;color:#5a6480;margin-bottom:20px;line-height:1.75;">A potential client has submitted an enquiry through the AXAS Solution website. Please review the details and respond within <strong>24 hours</strong> as promised.</p>' +
+    '<div class="alert-box">⚡ <strong>Action Required:</strong> Reply to <a href="mailto:' + d.email + '" style="color:#1a4fc4;">' + d.email + '</a> within 24 hours.</div>' +
+    '<div class="section"><div class="sec-lbl">👤 Client Information</div>' +
+    '<div class="row"><div class="rl">Full Name</div><div class="rv">' + d.name + '</div></div>' +
+    '<div class="row"><div class="rl">Email Address</div><div class="rv"><a href="mailto:' + d.email + '" style="color:#1a4fc4;">' + d.email + '</a></div></div>' +
+    '</div>' +
+    '<div class="section"><div class="sec-lbl">💼 Project Details</div>' +
+    '<div class="row"><div class="rl">Service Needed</div><div class="rv"><strong>' + (d.service || '—') + '</strong></div></div>' +
+    '<div class="row"><div class="rl">Budget Range</div><div class="rv">' + (d.budget || 'Not specified') + '</div></div>' +
+    '<div class="row"><div class="rl">Received On</div><div class="rv">' + ts + '</div></div>' +
+    '</div>' +
+    '<div class="section"><div class="sec-lbl">💬 Client Message</div>' +
+    '<div class="msg-box">' + d.message.replace(/\n/g,'<br/>') + '</div>' +
+    '</div>' +
+    '<div class="divider"></div>' +
+    '<a href="mailto:' + d.email + '?subject=Re:%20Your%20Enquiry%20-%20AXAS%20Solution&body=Dear%20' + encodeURIComponent(d.name.split(' ')[0]) + '," class="action-btn">📧 Reply to ' + d.name.split(' ')[0] + ' Now →</a>';
+
+  return emailShell('#0a1628','#1a4fc4','📬','New Client Enquiry','Received via AXAS Solution website contact form',body);
+}
+
+/* Client: enquiry confirmation */
+function contactClientHtml(d) {
+  var body =
+    '<div class="badge">✅ Enquiry Confirmed</div>' +
+    '<p style="font-size:14px;color:#5a6480;margin-bottom:20px;line-height:1.75;">Dear <strong>' + d.name.split(' ')[0] + '</strong>,<br/><br/>Thank you for reaching out to <strong>AXAS Solution</strong>! We have received your enquiry and our team is already reviewing your project details. We will get back to you within <strong>24 hours</strong> with a response and free consultation.</p>' +
+    '<div class="section"><div class="sec-lbl">📋 Your Submission Summary</div>' +
+    '<div class="row"><div class="rl">Name</div><div class="rv">' + d.name + '</div></div>' +
+    '<div class="row"><div class="rl">Email</div><div class="rv">' + d.email + '</div></div>' +
+    '<div class="row"><div class="rl">Service</div><div class="rv">' + (d.service || '—') + '</div></div>' +
+    '<div class="row"><div class="rl">Budget</div><div class="rv">' + (d.budget || '—') + '</div></div>' +
+    '</div>' +
+    '<div class="section"><div class="sec-lbl">💬 Your Message</div>' +
+    '<div class="msg-box">' + d.message.replace(/\n/g,'<br/>') + '</div>' +
+    '</div>' +
+    '<div class="divider"></div>' +
+    '<div class="steps-box"><strong style="color:#1a2340;">⏳ What happens next?</strong><br/>' +
+    '1. Our team reviews your enquiry within a few hours.<br/>' +
+    '2. We reply within <strong>24 hours</strong> with a free consultation.<br/>' +
+    '3. We share a tailored proposal for your project.</div>' +
+    '<div class="divider"></div>' +
+    '<p style="font-size:13px;color:#5a6480;margin-bottom:12px;">Need to reach us sooner? We\'re always available:</p>' +
+    '<a href="https://' + EJ.website + '" class="action-btn">🌐 Visit Our Website →</a>' +
+    '&nbsp;&nbsp;<a href="https://wa.me/' + EJ.whatsapp.replace(/[^0-9]/g,'') + '" style="display:inline-block;background:#25d366;color:#fff;font-weight:700;font-size:13px;padding:12px 20px;border-radius:6px;text-decoration:none;">💬 WhatsApp Us</a>';
+
+  return emailShell('#1a4fc4','#00a8e8','🎉','We\'ve Received Your Enquiry!','AXAS Solution will respond within 24 hours',body);
+}
+
+/* ================================================================
+   JOB APPLICATION EMAILS
+   ================================================================ */
+
+/* Admin: new application notification */
+function jobAdminHtml(d) {
+  var ts = fmtDate(d.ts);
+  var resumePart = d.resumeAttached
+    ? '<div class="row"><div class="rl">Resume</div><div class="rv">📎 <strong>' + d.resumeFile + '</strong> (' + d.resumeSize + ') — attached to this email</div></div>'
+    : '<div class="row"><div class="rl">Resume</div><div class="rv" style="color:#e84040;">Not uploaded by applicant</div></div>';
+
+  var body =
+    '<div class="badge">💼 New Job Application</div>' +
+    '<p style="font-size:14px;color:#5a6480;margin-bottom:20px;line-height:1.75;">A new candidate has applied to join AXAS Solution. Please review their profile below and the attached resume.</p>' +
+    '<div class="alert-box">⚡ <strong>Action Required:</strong> Contact <a href="mailto:' + d.email + '" style="color:#1a4fc4;">' + d.email + '</a> within 48 hours.</div>' +
+    '<div class="section"><div class="sec-lbl">👤 Applicant Information</div>' +
+    '<div class="row"><div class="rl">Full Name</div><div class="rv"><strong>' + d.name + '</strong></div></div>' +
+    '<div class="row"><div class="rl">Email Address</div><div class="rv"><a href="mailto:' + d.email + '" style="color:#1a4fc4;">' + d.email + '</a></div></div>' +
+    '<div class="row"><div class="rl">Phone Number</div><div class="rv"><a href="tel:' + d.phone + '" style="color:#1a4fc4;">' + d.phone + '</a></div></div>' +
+    '</div>' +
+    '<div class="section"><div class="sec-lbl">🎯 Position & Resume</div>' +
+    '<div class="row"><div class="rl">Role Applied For</div><div class="rv"><strong style="color:#1a2340;">' + (d.role || 'Not specified') + '</strong></div></div>' +
+    '<div class="row"><div class="rl">Applied On</div><div class="rv">' + ts + '</div></div>' +
+    resumePart +
+    '</div>' +
+    '<div class="divider"></div>' +
+    '<a href="mailto:' + d.email + '?subject=Re:%20Your%20Application%20-%20AXAS%20Solution" class="action-btn">📧 Reply to Applicant →</a>';
+
+  return emailShell('#0a1628','#7b1ac4','💼','New Job Application','Received via AXAS Solution careers form',body);
+}
+
+/* Applicant: confirmation email */
+function jobClientHtml(d) {
+  var body =
+    '<div class="badge">✅ Application Received</div>' +
+    '<p style="font-size:14px;color:#5a6480;margin-bottom:20px;line-height:1.75;">Dear <strong>' + d.name.split(' ')[0] + '</strong>,<br/><br/>Thank you for your interest in joining <strong>AXAS Solution</strong>! We are excited to review your application for the <strong>' + d.role + '</strong> role. Our team will carefully go through your profile and get back to you within <strong>48 hours</strong>.</p>' +
+    '<div class="section"><div class="sec-lbl">📋 Your Application Summary</div>' +
+    '<div class="row"><div class="rl">Full Name</div><div class="rv">' + d.name + '</div></div>' +
+    '<div class="row"><div class="rl">Email</div><div class="rv">' + d.email + '</div></div>' +
+    '<div class="row"><div class="rl">Phone</div><div class="rv">' + d.phone + '</div></div>' +
+    '<div class="row"><div class="rl">Role Applied For</div><div class="rv"><strong>' + d.role + '</strong></div></div>' +
+    '<div class="row"><div class="rl">Resume</div><div class="rv">' + (d.resumeFile ? '📎 ' + d.resumeFile : 'Not uploaded') + '</div></div>' +
+    '</div>' +
+    '<div class="divider"></div>' +
+    '<div class="steps-box"><strong style="color:#1a2340;">⏳ What happens next?</strong><br/>' +
+    '1. Our HR team reviews every application within 48 hours.<br/>' +
+    '2. Shortlisted candidates receive a call / email for a brief intro.<br/>' +
+    '3. We share details about the role, team culture, and next steps.<br/>' +
+    '4. Final candidates are invited for a portfolio / skills review.</div>' +
+    '<div class="divider"></div>' +
+    '<p style="font-size:13px;color:#5a6480;margin-bottom:14px;">While you wait, explore what we do at AXAS Solution:</p>' +
+    '<a href="https://' + EJ.website + '" class="action-btn">🌐 Visit Our Website →</a>' +
+    '&nbsp;&nbsp;<a href="mailto:' + EJ.adminEmail + '" style="display:inline-block;background:#f8f9fc;border:1.5px solid #dde2ee;color:#1a2340;font-weight:700;font-size:13px;padding:12px 20px;border-radius:6px;text-decoration:none;">📧 Email Us</a>';
+
+  return emailShell('#7b1ac4','#1a4fc4','🎉','Application Received!','We\'ll review and reply within 48 hours',body);
+}
+
+/* ================================================================
+   NAVBAR / MOBILE MENU / TABS / SCROLL REVEAL / METRICS
+   ================================================================ */
 window.addEventListener('scroll', function() {
-  var nav = document.getElementById('nav');
-  if (nav) nav.classList.toggle('scrolled', window.scrollY > 50);
+  var n = document.getElementById('nav');
+  if (n) n.classList.toggle('scrolled', window.scrollY > 50);
 });
 
-/* ──────────────────────────────────────────────────────────────
-   MOBILE MENU
-────────────────────────────────────────────────────────────── */
-function openMob() {
-  var m = document.getElementById('mob-menu');
-  if (m) m.classList.add('open');
-}
-function closeMob() {
-  var m = document.getElementById('mob-menu');
-  if (m) m.classList.remove('open');
-}
-var hbg = document.getElementById('hamburger');
-var mcl = document.getElementById('mob-close');
-if (hbg) hbg.addEventListener('click', openMob);
-if (mcl) mcl.addEventListener('click', closeMob);
+function openMob()  { var m=document.getElementById('mob-menu'); if(m) m.classList.add('open'); }
+function closeMob() { var m=document.getElementById('mob-menu'); if(m) m.classList.remove('open'); }
+(function() {
+  var h=document.getElementById('hamburger');
+  var c=document.getElementById('mob-close');
+  if(h) h.addEventListener('click',openMob);
+  if(c) c.addEventListener('click',closeMob);
+})();
 
-/* ──────────────────────────────────────────────────────────────
-   SERVICE TABS
-────────────────────────────────────────────────────────────── */
-var tabs   = document.querySelectorAll('.svc-tab');
-var panels = document.querySelectorAll('.svc-panel');
-
-tabs.forEach(function(tab) {
-  tab.addEventListener('click', function() {
-    var idx = this.getAttribute('data-tab');
-    tabs.forEach(function(t) { t.classList.remove('active'); });
-    panels.forEach(function(p) { p.classList.remove('active'); });
-    this.classList.add('active');
-    var target = document.querySelector('.svc-panel[data-panel="' + idx + '"]');
-    if (target) target.classList.add('active');
+(function() {
+  var tabs=document.querySelectorAll('.svc-tab');
+  var pnls=document.querySelectorAll('.svc-panel');
+  tabs.forEach(function(t) {
+    t.addEventListener('click',function() {
+      var i=this.getAttribute('data-tab');
+      tabs.forEach(function(x){x.classList.remove('active');});
+      pnls.forEach(function(x){x.classList.remove('active');});
+      this.classList.add('active');
+      var p=document.querySelector('.svc-panel[data-panel="'+i+'"]');
+      if(p) p.classList.add('active');
+    });
   });
+})();
+
+(function() {
+  var obs=new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}
+    });
+  },{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.sr').forEach(function(el){obs.observe(el);});
+})();
+
+(function() {
+  var obs=new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if(e.isIntersecting){
+        e.target.querySelectorAll('.metric-fill').forEach(function(f){
+          var w=f.getAttribute('data-w'); if(w) f.style.width=w+'%';
+        });
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.3});
+  document.querySelectorAll('.metrics-card').forEach(function(c){obs.observe(c);});
+})();
+
+/* ── Real-time validation ───────────────────────────────────── */
+['cName','cEmail','cService','cMsg','jName','jEmail','jPhone','jRole'].forEach(function(id) {
+  var el=document.getElementById(id);
+  if(!el) return;
+  el.addEventListener('blur',function(){validateEl(this);});
+  el.addEventListener('input',function(){if(this.classList.contains('invalid')) validateEl(this);});
 });
 
-/* ──────────────────────────────────────────────────────────────
-   SCROLL REVEAL
-────────────────────────────────────────────────────────────── */
-var srItems = document.querySelectorAll('.sr');
-var srObserver = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('in');
-      srObserver.unobserve(entry.target);
+/* ── File picker label update ────────────────────────────────── */
+(function() {
+  var inp=document.getElementById('jResume');
+  if(!inp) return;
+  inp.addEventListener('change',function() {
+    var lbl=document.querySelector('label[for="jResume"]');
+    var info=document.getElementById('jChosen');
+    if(this.files && this.files[0]) {
+      var f=this.files[0];
+      var sz=(f.size/1024).toFixed(1)+' KB';
+      if(lbl) { lbl.classList.add('picked'); lbl.innerHTML='<span style="font-size:1.1rem;">📎</span> <strong>'+f.name+'</strong> &nbsp;('+sz+')'; }
+      if(info) info.textContent='';
+    } else {
+      if(lbl) { lbl.classList.remove('picked'); lbl.innerHTML='<span style="font-size:1.1rem;">📎</span> Click or drag to upload resume (PDF, DOC, DOCX · max 5 MB)'; }
     }
   });
-}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-srItems.forEach(function(el) { srObserver.observe(el); });
+})();
 
-/* ──────────────────────────────────────────────────────────────
-   METRIC BAR ANIMATIONS
-────────────────────────────────────────────────────────────── */
-var metricsCards = document.querySelectorAll('.metrics-card');
-var barObserver = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
-    if (entry.isIntersecting) {
-      var fills = entry.target.querySelectorAll('.metric-fill');
-      fills.forEach(function(f) {
-        var w = f.getAttribute('data-w');
-        if (w) f.style.width = w + '%';
-      });
-      barObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.3 });
-metricsCards.forEach(function(card) { barObserver.observe(card); });
-
-/* ──────────────────────────────────────────────────────────────
+/* ================================================================
    CONTACT FORM SUBMIT
-────────────────────────────────────────────────────────────── */
-var cForm = document.getElementById('contactForm');
-if (cForm) {
-  cForm.addEventListener('submit', function(e) {
+   ================================================================ */
+(function() {
+  var form=document.getElementById('contactForm');
+  if(!form) return;
+  form.addEventListener('submit',function(e) {
     e.preventDefault();
-    var btn = document.getElementById('cBtn');
-    if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
 
-    var payload = {
-      name:    (document.getElementById('cName')    || {}).value || '',
-      email:   (document.getElementById('cEmail')   || {}).value || '',
-      service: (document.getElementById('cService') || {}).value || '',
-      budget:  (document.getElementById('cBudget')  || {}).value || '',
-      message: (document.getElementById('cMsg')     || {}).value || '',
-      submitted_at: new Date().toISOString(),
-      type: 'contact'
+    var ok=['cName','cEmail','cService','cMsg'].every(function(id){ return validateEl(document.getElementById(id)); });
+    if(!ok){ showToast('Please complete all required fields correctly.', true); return; }
+
+    setBtn('cBtn', true, 'Sending…');
+
+    var d = {
+      name:    document.getElementById('cName').value.trim(),
+      email:   document.getElementById('cEmail').value.trim(),
+      service: document.getElementById('cService').value,
+      budget:  (document.getElementById('cBudget')||{}).value||'',
+      message: document.getElementById('cMsg').value.trim(),
+      ts:      nowISO()
     };
 
-    var dbPromise;
-    if (db) {
-      dbPromise = db.from('clients').insert([payload]).then(function(res) {
-        if (res.error) throw res.error;
-      });
-    } else {
-      dbPromise = Promise.resolve();
-    }
+    var adminHtml  = contactAdminHtml(d);
+    var clientHtml = contactClientHtml(d);
 
-    dbPromise.then(function() {
-      return  emailjs.send(EJ_SERVICE, EJ_CONTACT_T, {
-             name:    payload.name,
-             email:   payload.email,
-            service: payload.service,
-            budget:  payload.budget,
-              message: payload.message
-});
-    }).then(function() {
-      showToast("Message sent! We'll reply within 24 hours. 🚀", false);
-      cForm.reset();
-    }).catch(function(err) {
-      console.error(err);
-      showToast('Something went wrong — please try again or WhatsApp us.', true);
-    }).finally(function() {
-      if (btn) { btn.disabled = false; btn.textContent = 'Send Message'; }
+    /* Send 1: Admin notification */
+    emailjs.send(EJ.serviceId, EJ.contactTpl, {
+      to_email:     EJ.adminEmail,
+      to_name:      EJ.adminName,
+      reply_to:     d.email,
+      subject:      'New Enquiry from ' + d.name + ' — AXAS Solution',
+      from_name:    d.name,
+      from_email:   d.email,
+      service_type: d.service || '—',
+      budget:       d.budget || 'Not specified',
+      message:      d.message,
+      received_at:  fmtDate(d.ts),
+      html_body:    adminHtml
+    })
+    .then(function() {
+      /* Send 2: Client auto-reply */
+      return emailjs.send(EJ.serviceId, EJ.contactTpl, {
+        to_email:     d.email,
+        to_name:      d.name,
+        reply_to:     EJ.adminEmail,
+        subject:      'We\'ve received your enquiry — AXAS Solution',
+        from_name:    EJ.company,
+        from_email:   EJ.adminEmail,
+        service_type: d.service || '—',
+        budget:       d.budget || '—',
+        message:      d.message,
+        received_at:  fmtDate(d.ts),
+        html_body:    clientHtml
+      });
+    })
+    .then(function() {
+      showToast('Message sent! Check your email — we\'ll reply within 24 hours. 🚀', false);
+      showSuccess('contactForm','cSuccessOverlay');
+    })
+    .catch(function(err) {
+      console.error('[AXAS Contact]', err);
+      showToast('Email failed — please contact us directly at '+EJ.adminEmail, true);
+      setBtn('cBtn', false, 'Send Message');
     });
   });
-}
+})();
 
-/* ──────────────────────────────────────────────────────────────
-   JOIN FORM SUBMIT
-────────────────────────────────────────────────────────────── */
-var jForm = document.getElementById('joinForm');
-if (jForm) {
-  jForm.addEventListener('submit', function(e) {
+/* ================================================================
+   JOB APPLICATION FORM SUBMIT
+   ================================================================ */
+(function() {
+  var form=document.getElementById('joinForm');
+  if(!form) return;
+  form.addEventListener('submit',function(e) {
     e.preventDefault();
-    var btn = document.getElementById('jBtn');
-    if (btn) { btn.disabled = true; btn.textContent = 'Submitting...'; }
 
-    var payload = {
-      name:  (document.getElementById('jName')  || {}).value || '',
-      email: (document.getElementById('jEmail') || {}).value || '',
-      phone: (document.getElementById('jPhone') || {}).value || '',
-      role:  (document.getElementById('jRole')  || {}).value || '',
-      submitted_at: new Date().toISOString(),
-      type: 'job_application'
+    var ok=['jName','jEmail','jPhone','jRole'].every(function(id){ return validateEl(document.getElementById(id)); });
+    if(!ok){ showToast('Please complete all required fields.', true); return; }
+
+    var inp  = document.getElementById('jResume');
+    var file = inp && inp.files[0] ? inp.files[0] : null;
+
+    /* Check file size (max 5 MB — EmailJS free limit) */
+    if(file && file.size > 5 * 1024 * 1024) {
+      showToast('Resume too large (max 5 MB). Please compress and re-upload.', true);
+      return;
+    }
+
+    var d = {
+      name:         document.getElementById('jName').value.trim(),
+      email:        document.getElementById('jEmail').value.trim(),
+      phone:        document.getElementById('jPhone').value.trim(),
+      role:         document.getElementById('jRole').value,
+      ts:           nowISO(),
+      resumeFile:   file ? file.name : null,
+      resumeSize:   file ? fileSizeKB(file) : null,
+      resumeAttached: !!file,
+      resumeB64:    null,
+      resumeMime:   file ? (file.type || 'application/octet-stream') : null
     };
 
-    var dbPromise;
-    if (db) {
-      dbPromise = db.from('job_applications').insert([payload]).then(function(res) {
-        if (res.error) throw res.error;
-      });
-    } else {
-      dbPromise = Promise.resolve();
-    }
+    setBtn('jBtn', true, 'Reading Resume…');
 
-    dbPromise.then(function() {
-      return emailjs.send(EJ_SERVICE, EJ_CONTACT_T, {
-        applicant_name:  payload.name,
-        applicant_email: payload.email,
-        applicant_phone: payload.phone,
-        role:            payload.role || 'Not specified'
+    var readPromise = file ? fileToBase64(file) : Promise.resolve(null);
+
+    readPromise
+    .then(function(b64) {
+      d.resumeB64 = b64;
+      setBtn('jBtn', true, 'Sending Emails…');
+
+      var adminHtml  = jobAdminHtml(d);
+      var clientHtml = jobClientHtml(d);
+
+      /* Build params — include resume as attachment if present */
+      var adminParams = {
+        to_email:        EJ.adminEmail,
+        to_name:         EJ.adminName,
+        reply_to:        d.email,
+        subject:         'New Application: ' + d.role + ' — ' + d.name + ' | AXAS Solution',
+        applicant_name:  d.name,
+        applicant_email: d.email,
+        applicant_phone: d.phone,
+        role:            d.role,
+        resume_filename: d.resumeFile || 'Not uploaded',
+        resume_size:     d.resumeSize || '—',
+        applied_at:      fmtDate(d.ts),
+        html_body:       adminHtml
+      };
+
+      /* EmailJS supports file attachment via content/filename/type */
+      if(d.resumeB64 && d.resumeFile) {
+        adminParams.resume_content  = d.resumeB64;
+        adminParams.resume_name     = d.resumeFile;
+        adminParams.resume_mimetype = d.resumeMime;
+      }
+
+      /* Send 1: Admin with resume */
+      return emailjs.send(EJ.serviceId, EJ.joinTpl, adminParams)
+      .then(function() {
+        /* Send 2: Applicant confirmation */
+        return emailjs.send(EJ.serviceId, EJ.joinTpl, {
+          to_email:        d.email,
+          to_name:         d.name,
+          reply_to:        EJ.adminEmail,
+          subject:         'Application received — AXAS Solution',
+          applicant_name:  d.name,
+          applicant_email: d.email,
+          applicant_phone: d.phone,
+          role:            d.role,
+          resume_filename: d.resumeFile || 'Not uploaded',
+          resume_size:     d.resumeSize || '—',
+          applied_at:      fmtDate(d.ts),
+          html_body:       clientHtml
+        });
       });
-    }).then(function() {
-      showToast("Application submitted! We'll contact you within 48 hours. 🎉", false);
-      jForm.reset();
-      var fc = document.getElementById('jChosen');
-      if (fc) fc.textContent = '';
-    }).catch(function(err) {
-      console.error(err);
-      showToast('Something went wrong — please try again.', true);
-    }).finally(function() {
-      if (btn) { btn.disabled = false; btn.textContent = 'Submit Application'; }
+    })
+    .then(function() {
+      showToast('Application submitted! Check your inbox for confirmation. 🎉', false);
+      showSuccess('joinForm','jSuccessOverlay');
+    })
+    .catch(function(err) {
+      console.error('[AXAS Job]', err);
+      showToast('Sending failed — please email your resume to '+EJ.adminEmail, true);
+      setBtn('jBtn', false, 'Submit Application');
     });
   });
-}
+})();
 </script>
 </body>
 </html>
